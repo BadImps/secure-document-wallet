@@ -1,0 +1,15 @@
+My Vault 1.5
+
+- Replaced the homepage Scan text button with a centered circular scan badge.
+- Quick tap and press-and-hold scanning behavior remain available.
+- Added layered stack artwork to every homepage category tile.
+- Bank Cards now displays an almost-invisible wallet stack behind the active card.
+- Tap a card to flip between front and back.
+- Flick downward to rotate to the next saved card.
+- Changed new vault PINs to four digits.
+- After biometric confirmation, entering the fourth digit unlocks My Vault automatically.
+- Removed the Unlock and Close App buttons from PIN entry.
+- Existing six-digit vaults receive a one-time, rollback-safe migration that re-encrypts every vault file under the new four-digit PIN.
+- Updated the PC portal to accept the new four-digit PIN.
+
+Encrypted documents, scanning profiles, exports, cloud backup, and OTA updates remain intact.

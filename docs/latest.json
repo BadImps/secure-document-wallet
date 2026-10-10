@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 5,
-  "versionName": "1.4",
-  "publishedAt": "2026-10-10T17:41:53Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v1.4/My-Vault.apk",
-  "sha256": "a5d799dc77b6f05f0a674a79cac130206cad75f3f587ed2b9d954ae8bd43b87a",
-  "sizeBytes": 4492403,
-  "notes": "My Vault 1.4 adds quick Scan plus press-and-hold scan profiles for portrait documents, landscape certificates, and guided rounded front-and-back card capture."
+  "versionCode": 6,
+  "versionName": "1.5",
+  "publishedAt": "2026-10-10T18:01:26Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v1.5/My-Vault.apk",
+  "sha256": "91f724bb5e4a139b561373edfc6c9f700d96cafe0e2418a1c8e44ce085234da7",
+  "sizeBytes": 4498619,
+  "notes": "My Vault 1.5 adds an icon-only Scan badge, stacked document artwork, a flickable 3D card wallet, and automatic four-digit PIN unlock with safe migration for existing vaults."
 }

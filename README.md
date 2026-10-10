@@ -5,7 +5,7 @@ An offline-first Android document vault with automatic ML Kit scanning, encrypte
 ## Security design
 
 - Every stored page and the vault index use AES-256-GCM.
-- The encryption key is derived locally from the six-digit vault PIN with PBKDF2-HMAC-SHA256 (310,000 iterations) and a unique random salt.
+- The encryption key is derived locally from the four-digit vault PIN with PBKDF2-HMAC-SHA256 (310,000 iterations) and a unique random salt.
 - Android requires strong biometrics before accepting the PIN.
 - The PC portal requires a Supabase email OTP before accepting the same PIN.
 - The PIN and derived encryption key are never uploaded.

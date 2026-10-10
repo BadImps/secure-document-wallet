@@ -11,5 +11,6 @@ final class VaultRepository {
  synchronized void rename(String id,String title,String category)throws Exception{JSONArray a=all();for(int i=0;i<a.length();i++){JSONObject d=a.getJSONObject(i);if(id.equals(d.optString("id"))){d.put("title",title);d.put("category",category);break;}}save(a);}
  synchronized void delete(String id)throws Exception{JSONArray source=all(),out=new JSONArray();for(int i=0;i<source.length();i++){JSONObject d=source.getJSONObject(i);if(id.equals(d.optString("id"))){JSONArray pages=d.optJSONArray("pages");for(int j=0;pages!=null&&j<pages.length();j++)crypto.delete(pages.optString(j));}else out.put(d);}save(out);}
  byte[] page(JSONObject d,int index)throws Exception{return crypto.decrypt(new File(crypto.vaultDir(),d.getJSONArray("pages").getString(index)+".sdw"));}
+ void rekey(String oldPin,String newPin,byte[] salt)throws Exception{crypto.rekey(oldPin,newPin,salt);}
  private void save(JSONArray a)throws Exception{crypto.encryptBytes(a.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8),INDEX);}
 }
