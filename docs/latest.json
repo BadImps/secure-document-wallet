@@ -3,7 +3,7 @@
   "versionCode": 8,
   "versionName": "1.7",
   "publishedAt": "2026-10-10T18:33:24Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v1.7/My-Vault.apk",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v1.7/My-Vault-1.7.apk",
   "sha256": "0382b05fe9ff4f36330fd4ac66a3315da8cb2db7f5df208a47b5ad0fa0b4f714",
   "sizeBytes": 6254326,
   "notes": "My Vault 1.7 adds themed PIN entry, animated stacks for every document category, full-bleed virtual documents, secure edit and recrop controls, and the new teal-and-gold square vault icon."
