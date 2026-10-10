@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 9,
-  "versionName": "1.8",
-  "publishedAt": "2026-10-10T18:46:03Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v1.8/My-Vault-1.8.apk",
-  "sha256": "a7c6504c3ee180deb01f93917f7abcd6a6b3ee55468456a04ffb5fd743a54cf9",
-  "sizeBytes": 6254882,
-  "notes": "My Vault 1.8 gives ID and bank-card viewers true card proportions, preserves every scanned edge, shows real encrypted cards behind the active item, and adds polished tap-to-flip and downward-flick navigation."
+  "versionCode": 10,
+  "versionName": "1.9",
+  "publishedAt": "2026-10-10T19:11:52Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v1.9/My-Vault-1.9.apk",
+  "sha256": "460806ae33057e1cd6d813b3ec7ebbd7a91fbff77a45693b0a62314de7c088fb",
+  "sizeBytes": 6258018,
+  "notes": "My Vault 1.9 removes Recent Documents, adds an animated in-app PIN keypad that cannot be covered by the keyboard, and unifies every category into one tap-to-flip, flick-down stack with Edit, Crop And Export at the bottom."
 }

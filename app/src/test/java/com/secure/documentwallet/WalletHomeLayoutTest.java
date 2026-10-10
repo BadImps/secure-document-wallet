@@ -1,8 +1,28 @@
 package com.secure.documentwallet;
 
-import android.app.Application;import android.graphics.*;import android.view.*;import org.json.*;import org.junit.*;import org.junit.runner.RunWith;import org.robolectric.*;import org.robolectric.annotation.*;import org.robolectric.util.ReflectionHelpers;import java.io.*;import static org.junit.Assert.*;
+import android.app.Application;
+import android.graphics.*;
+import android.view.*;
+import android.widget.TextView;
+import org.junit.*;
+import org.junit.runner.RunWith;
+import org.robolectric.*;
+import org.robolectric.annotation.*;
+import org.robolectric.util.ReflectionHelpers;
+import java.io.*;
+import static org.junit.Assert.*;
 
-@RunWith(RobolectricTestRunner.class) @Config(sdk=35,application=Application.class,qualifiers="mdpi") @GraphicsMode(GraphicsMode.Mode.NATIVE)
+@RunWith(RobolectricTestRunner.class)
+@Config(sdk=35,application=Application.class,qualifiers="mdpi")
+@GraphicsMode(GraphicsMode.Mode.NATIVE)
 public class WalletHomeLayoutTest {
- @Test public void homeRendersProfessionalDocumentCardsAtPhoneWidth()throws Exception{Application app=RuntimeEnvironment.getApplication();PinSecurity security=new PinSecurity(app);if(!security.configured())security.set("1234");Session.unlock("1234",security.vaultSalt());var controller=Robolectric.buildActivity(MainActivity.class).create().start().resume();MainActivity activity=controller.get();ReflectionHelpers.callInstanceMethod(activity,"home");JSONArray docs=new JSONArray().put(new JSONObject().put("id","1").put("title","National Identification Card").put("category","Identity").put("createdAt",System.currentTimeMillis()).put("pages",new JSONArray().put("front").put("back"))).put(new JSONObject().put("id","2").put("title","Driver Permit").put("category","Driver Permit / Licence").put("createdAt",System.currentTimeMillis()).put("pages",new JSONArray().put("front")));ReflectionHelpers.callInstanceMethod(activity,"render",ReflectionHelpers.ClassParameter.from(JSONArray.class,docs));View root=activity.getWindow().getDecorView();int w=390,h=844;root.measure(View.MeasureSpec.makeMeasureSpec(w,View.MeasureSpec.EXACTLY),View.MeasureSpec.makeMeasureSpec(h,View.MeasureSpec.EXACTLY));root.layout(0,0,w,h);Bitmap image=Bitmap.createBitmap(w,h,Bitmap.Config.ARGB_8888);root.draw(new Canvas(image));File out=new File("build/wallet-home-1.0.png");out.getParentFile().mkdirs();try(FileOutputStream stream=new FileOutputStream(out)){image.compress(Bitmap.CompressFormat.PNG,100,stream);}assertTrue(out.length()>10000);controller.pause().stop().destroy();Session.lock();}
+ @Test public void homeShowsFourCategoryTilesWithoutRecentDocuments()throws Exception{
+  Application app=RuntimeEnvironment.getApplication();PinSecurity security=new PinSecurity(app);if(!security.configured())security.set("1234");Session.unlock("1234",security.vaultSalt());
+  var controller=Robolectric.buildActivity(MainActivity.class).create().start().resume();MainActivity activity=controller.get();ReflectionHelpers.callInstanceMethod(activity,"home");View root=activity.getWindow().getDecorView();
+  int w=390,h=844;root.measure(View.MeasureSpec.makeMeasureSpec(w,View.MeasureSpec.EXACTLY),View.MeasureSpec.makeMeasureSpec(h,View.MeasureSpec.EXACTLY));root.layout(0,0,w,h);
+  assertTrue(hasText(root,"ID / Permit"));assertTrue(hasText(root,"Certificates"));assertTrue(hasText(root,"Bank Cards"));assertTrue(hasText(root,"Documents"));assertFalse(hasText(root,"Recent Documents"));
+  Bitmap image=Bitmap.createBitmap(w,h,Bitmap.Config.ARGB_8888);root.draw(new Canvas(image));File out=new File("build/wallet-home-1.9.png");out.getParentFile().mkdirs();try(FileOutputStream stream=new FileOutputStream(out)){image.compress(Bitmap.CompressFormat.PNG,100,stream);}assertTrue(out.length()>10000);
+  controller.pause().stop().destroy();Session.lock();
+ }
+ private boolean hasText(View view,String expected){if(view instanceof TextView&&expected.contentEquals(((TextView)view).getText()))return true;if(view instanceof ViewGroup){ViewGroup group=(ViewGroup)view;for(int i=0;i<group.getChildCount();i++)if(hasText(group.getChildAt(i),expected))return true;}return false;}
 }
