@@ -14,6 +14,8 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="false"
         android:theme="@style/AppTheme">
+        <activity android:name=".BankCardActivity" android:exported="false" />
+        <activity android:name=".CategoryActivity" android:exported="false" />
         <activity android:name=".DocumentActivity" android:exported="false" />
         <activity android:name=".MainActivity" android:exported="true">
             <intent-filter>

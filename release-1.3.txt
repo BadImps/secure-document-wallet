@@ -1,0 +1,11 @@
+My Vault 1.3
+
+- Every homepage tile now opens its own category page.
+- ID / Permit, Certificates, Bank Cards, and Documents each show only their matching saved files.
+- Category pages use polished encrypted-document lists with names, dates, and page counts.
+- Bank Cards open in a dedicated secure viewer.
+- Tap the displayed bank card to flip between its front and back with a 3D animation.
+- Cards with only one saved image show a clear back-side placeholder.
+- Full document, PDF, Word, print, share, rename, and delete tools remain available.
+
+Existing encrypted documents and category mappings remain intact.
