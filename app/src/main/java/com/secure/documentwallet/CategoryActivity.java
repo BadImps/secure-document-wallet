@@ -1,189 +1,46 @@
 package com.secure.documentwallet;
 
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.*;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.Gravity;
-import android.view.View;
+import android.view.*;
 import android.widget.*;
 import androidx.fragment.app.FragmentActivity;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import org.json.*;
+import java.util.*;
+import java.util.concurrent.*;
 
+/** An animated private stack shared by every vault category. */
 public class CategoryActivity extends FragmentActivity {
-    private final ExecutorService io = Executors.newSingleThreadExecutor();
-    private VaultRepository repo;
-    private LinearLayout list;
-    private TextView count;
-    private String group;
+ private final ExecutorService io=Executors.newSingleThreadExecutor();
+ private final ArrayList<JSONObject> items=new ArrayList<>();
+ private VaultRepository repo; private String group; private int index; private boolean ready;
+ private FrameLayout active; private TextView itemTitle,counter,side; private Bitmap image; private float downY;
 
-    @Override public void onCreate(Bundle state) {
-        super.onCreate(state);
-        Ui.safeScreen(this);
-        Ui.lightBars(this);
-        if (!Session.valid()) { finish(); return; }
-        group = getIntent().getStringExtra("group");
-        if (group == null) group = DocumentGroups.DOCUMENTS;
-        repo = new VaultRepository(this);
-        buildPage();
-    }
-
-    private void buildPage() {
-        ScrollView scroll = new ScrollView(this);
-        scroll.setFillViewport(true);
-        LinearLayout page = Ui.column(this);
-        page.setBackgroundColor(0xfffbfaf6);
-        page.setPadding(Ui.dp(this, 18), Ui.dp(this, 16), Ui.dp(this, 18), Ui.dp(this, 30));
-        scroll.addView(page);
-
-        LinearLayout bar = new LinearLayout(this);
-        bar.setGravity(Gravity.CENTER_VERTICAL);
-        TextView back = Ui.text(this, "‹", 40, 0xff061f3b);
-        back.setGravity(Gravity.CENTER);
-        back.setContentDescription("Back To My Vault");
-        back.setOnClickListener(v -> finish());
-        bar.addView(back, new LinearLayout.LayoutParams(Ui.dp(this, 48), Ui.dp(this, 54)));
-
-        ImageView categoryIcon = new ImageView(this);
-        categoryIcon.setImageResource(DocumentGroups.icon(group));
-        categoryIcon.setPadding(Ui.dp(this, 8), Ui.dp(this, 8), Ui.dp(this, 8), Ui.dp(this, 8));
-        categoryIcon.setBackground(Ui.bg(DocumentGroups.color(group), Ui.dp(this, 14)));
-        bar.addView(categoryIcon, new LinearLayout.LayoutParams(Ui.dp(this, 56), Ui.dp(this, 56)));
-
-        LinearLayout titles = Ui.column(this);
-        titles.setPadding(Ui.dp(this, 14), 0, 0, 0);
-        TextView title = Ui.title(this, group, 25);
-        title.setTextColor(0xff061f3b);
-        titles.addView(title);
-        count = Ui.text(this, "Opening Secure Documents…", 13, 0xff727a87);
-        titles.addView(count);
-        bar.addView(titles, new LinearLayout.LayoutParams(0, -2, 1));
-        page.addView(bar);
-
-        TextView hint = Ui.text(this, DocumentGroups.CARDS.equals(group) ? "Choose a saved card to view it, then tap the card to flip between its front and back." : "Your encrypted files in this category are listed below.", 14, Ui.MUTED);
-        hint.setLineSpacing(0, 1.12f);
-        hint.setPadding(Ui.dp(this, 6), Ui.dp(this, 18), Ui.dp(this, 6), Ui.dp(this, 18));
-        page.addView(hint);
-
-        list = Ui.column(this);
-        page.addView(list);
-        setContentView(scroll);
-    }
-
-    private void load() {
-        list.removeAllViews();
-        ProgressBar progress = new ProgressBar(this);
-        list.addView(progress, new LinearLayout.LayoutParams(-1, Ui.dp(this, 70)));
-        io.execute(() -> {
-            try {
-                JSONArray all = repo.all();
-                runOnUiThread(() -> render(all));
-            } catch (Exception error) {
-                runOnUiThread(() -> { list.removeAllViews(); Ui.toast(this, "Could Not Open This Category"); });
-            }
-        });
-    }
-
-    private void render(JSONArray all) {
-        list.removeAllViews();
-        int total = 0;
-        for (int i = 0; i < all.length(); i++) {
-            JSONObject document = all.optJSONObject(i);
-            if (document != null && group.equals(DocumentGroups.fromCategory(document.optString("category")))) total++;
-        }
-        count.setText(total + " Saved " + (total == 1 ? "Item" : "Items"));
-        if (total == 0) { showEmpty(); return; }
-
-        for (int i = all.length() - 1; i >= 0; i--) {
-            JSONObject document = all.optJSONObject(i);
-            if (document == null || !group.equals(DocumentGroups.fromCategory(document.optString("category")))) continue;
-            list.addView(documentRow(document), rowParams());
-        }
-    }
-
-    private View documentRow(JSONObject document) {
-        LinearLayout card = new LinearLayout(this);
-        card.setGravity(Gravity.CENTER_VERTICAL);
-        card.setPadding(Ui.dp(this, 14), Ui.dp(this, 12), Ui.dp(this, 12), Ui.dp(this, 12));
-        card.setBackground(Ui.bg(Color.WHITE, Ui.dp(this, 19)));
-        card.setElevation(Ui.dp(this, 5));
-
-        FrameLayout iconBox = new FrameLayout(this);
-        iconBox.setBackground(Ui.bg(DocumentGroups.color(group), Ui.dp(this, 14)));
-        ImageView icon = new ImageView(this);
-        icon.setImageResource(DocumentGroups.icon(group));
-        icon.setPadding(Ui.dp(this, 8), Ui.dp(this, 8), Ui.dp(this, 8), Ui.dp(this, 8));
-        iconBox.addView(icon, new FrameLayout.LayoutParams(-1, -1));
-        card.addView(iconBox, new LinearLayout.LayoutParams(Ui.dp(this, 64), Ui.dp(this, 64)));
-
-        LinearLayout words = Ui.column(this);
-        words.setPadding(Ui.dp(this, 15), 0, Ui.dp(this, 7), 0);
-        TextView name = Ui.title(this, document.optString("title", "Document"), 18);
-        name.setTextColor(0xff061f3b);
-        name.setSingleLine(true);
-        name.setEllipsize(TextUtils.TruncateAt.END);
-        words.addView(name);
-        JSONArray pages = document.optJSONArray("pages");
-        int pageCount = pages == null ? 0 : pages.length();
-        String detail = DocumentGroups.CARDS.equals(group) ? "Tap To View And Flip" : pageCount + " Page" + (pageCount == 1 ? "" : "s");
-        String date = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(new Date(document.optLong("createdAt")));
-        words.addView(Ui.text(this, detail + "  ·  " + date, 13, 0xff7b838e));
-        card.addView(words, new LinearLayout.LayoutParams(0, -2, 1));
-
-        TextView arrow = Ui.text(this, "›", 32, 0xff71807d);
-        arrow.setGravity(Gravity.CENTER);
-        card.addView(arrow, new LinearLayout.LayoutParams(Ui.dp(this, 34), Ui.dp(this, 54)));
-        card.setOnClickListener(v -> open(document));
-        return card;
-    }
-
-    private LinearLayout.LayoutParams rowParams() {
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, Ui.dp(this, 92));
-        params.bottomMargin = Ui.dp(this, 13);
-        return params;
-    }
-
-    private void open(JSONObject document) {
-        Class<?> destination = DocumentGroups.CARDS.equals(group) ? BankCardActivity.class : DocumentActivity.class;
-        startActivity(new Intent(this, destination).putExtra("id", document.optString("id")));
-    }
-
-    private void showEmpty() {
-        LinearLayout empty = Ui.column(this);
-        empty.setGravity(Gravity.CENTER);
-        empty.setPadding(Ui.dp(this, 20), Ui.dp(this, 42), Ui.dp(this, 20), Ui.dp(this, 42));
-        empty.setBackground(Ui.stroke(Color.WHITE, Ui.dp(this, 1), 0xffe0e6e3, Ui.dp(this, 20)));
-        ImageView icon = new ImageView(this);
-        icon.setImageResource(DocumentGroups.icon(group));
-        icon.setAlpha(.82f);
-        empty.addView(icon, new LinearLayout.LayoutParams(-1, Ui.dp(this, 78)));
-        TextView title = Ui.title(this, "No " + group + " Saved Yet", 19);
-        title.setTextColor(0xff061f3b);
-        title.setGravity(Gravity.CENTER);
-        empty.addView(title);
-        TextView message = Ui.text(this, "Return to My Vault and scan your first item for this category.", 14, Ui.MUTED);
-        message.setGravity(Gravity.CENTER);
-        message.setPadding(Ui.dp(this, 18), Ui.dp(this, 9), Ui.dp(this, 18), 0);
-        empty.addView(message);
-        list.addView(empty);
-    }
-
-    @Override protected void onResume() {
-        super.onResume();
-        if (!Session.valid()) { finish(); return; }
-        if (list != null) load();
-    }
-
-    @Override public boolean dispatchTouchEvent(android.view.MotionEvent event) {
-        if (Session.valid()) Session.touch();
-        return super.dispatchTouchEvent(event);
-    }
-
-    @Override protected void onDestroy() { super.onDestroy(); io.shutdownNow(); }
+ @Override public void onCreate(Bundle b){super.onCreate(b);Ui.safeScreen(this);Ui.lightBars(this);if(!Session.valid()){finish();return;}group=getIntent().getStringExtra("group");if(group==null)group=DocumentGroups.DOCUMENTS;repo=new VaultRepository(this);build();load();}
+ private void build(){
+  LinearLayout page=Ui.column(this);page.setBackgroundColor(0xfffbfaf6);page.setPadding(Ui.dp(this,18),Ui.dp(this,14),Ui.dp(this,18),Ui.dp(this,25));
+  LinearLayout bar=new LinearLayout(this);bar.setGravity(Gravity.CENTER_VERTICAL);
+  TextView back=Ui.text(this,"‹",40,0xff061f3b);back.setGravity(Gravity.CENTER);back.setOnClickListener(v->finish());bar.addView(back,new LinearLayout.LayoutParams(Ui.dp(this,48),Ui.dp(this,54)));
+  ImageView icon=new ImageView(this);icon.setImageResource(DocumentGroups.icon(group));icon.setPadding(Ui.dp(this,8),Ui.dp(this,8),Ui.dp(this,8),Ui.dp(this,8));icon.setBackground(Ui.bg(DocumentGroups.color(group),Ui.dp(this,28)));bar.addView(icon,new LinearLayout.LayoutParams(Ui.dp(this,52),Ui.dp(this,52)));
+  LinearLayout names=Ui.column(this);names.setPadding(Ui.dp(this,13),0,0,0);TextView heading=Ui.title(this,group,25);heading.setTextColor(0xff061f3b);names.addView(heading);counter=Ui.text(this,"Opening Secure Stack…",13,0xff727a87);names.addView(counter);bar.addView(names,new LinearLayout.LayoutParams(0,-2,1));page.addView(bar);
+  TextView instruction=Ui.text(this,"Tap To Open  ·  Flick Down For Next",14,Ui.TEAL);instruction.setTypeface(null,android.graphics.Typeface.BOLD);instruction.setGravity(Gravity.CENTER);instruction.setPadding(0,Ui.dp(this,20),0,Ui.dp(this,11));page.addView(instruction);
+  int deckHeight=DocumentGroups.CARDS.equals(group)?Ui.dp(this,285):DocumentGroups.CERTIFICATES.equals(group)?Ui.dp(this,300):Ui.dp(this,470),faceHeight=deckHeight-Ui.dp(this,38);
+  FrameLayout deck=new FrameLayout(this);deck.setClipChildren(false);deck.addView(layer(.08f,.91f,28),params(faceHeight,18));deck.addView(layer(.13f,.96f,15),params(faceHeight,9));
+  active=new FrameLayout(this);active.setBackground(Ui.bg(Color.WHITE,Ui.dp(this,22)));active.setClipToOutline(true);active.setElevation(Ui.dp(this,11));active.setOnClickListener(v->open());active.setOnTouchListener((v,e)->{if(e.getActionMasked()==MotionEvent.ACTION_DOWN){downY=e.getY();return true;}if(e.getActionMasked()==MotionEvent.ACTION_UP){if(e.getY()-downY>Ui.dp(this,64))next();else v.performClick();return true;}return true;});deck.addView(active,params(faceHeight,0));page.addView(deck,new LinearLayout.LayoutParams(-1,deckHeight));
+  itemTitle=Ui.title(this,"",20);itemTitle.setTextColor(0xff061f3b);itemTitle.setGravity(Gravity.CENTER);page.addView(itemTitle);side=Ui.text(this,"Encrypted On This Phone",13,Ui.MUTED);side.setGravity(Gravity.CENTER);side.setPadding(0,Ui.dp(this,5),0,0);page.addView(side);
+  TextView hint=Ui.text(this,"Your scan fills the active tile like a real card or document. The layers behind it remain private until selected.",13,Ui.MUTED);hint.setGravity(Gravity.CENTER);hint.setLineSpacing(0,1.12f);hint.setPadding(Ui.dp(this,16),Ui.dp(this,18),Ui.dp(this,16),0);page.addView(hint);setContentView(page);
+ }
+ private View layer(float alpha,float scale,int drop){View v=new View(this);v.setBackground(Ui.bg(DocumentGroups.color(group),Ui.dp(this,22)));v.setAlpha(alpha);v.setScaleX(scale);v.setTranslationY(Ui.dp(this,drop));v.setElevation(Ui.dp(this,2));return v;}
+ private FrameLayout.LayoutParams params(int h,int top){FrameLayout.LayoutParams p=new FrameLayout.LayoutParams(-1,h,Gravity.TOP|Gravity.CENTER_HORIZONTAL);p.setMargins(Ui.dp(this,5),Ui.dp(this,top),Ui.dp(this,5),0);return p;}
+ private void load(){ready=false;io.execute(()->{try{JSONArray all=repo.all();items.clear();for(int i=all.length()-1;i>=0;i--){JSONObject d=all.optJSONObject(i);if(d!=null&&group.equals(DocumentGroups.fromCategory(d.optString("category"))))items.add(d);}runOnUiThread(()->{if(items.isEmpty())empty();else{index=0;show(false);}});}catch(Exception e){runOnUiThread(()->Ui.toast(this,"Could Not Open This Category"));}});}
+ private void show(boolean animate){ready=false;release();active.removeAllViews();ProgressBar p=new ProgressBar(this);active.addView(p,new FrameLayout.LayoutParams(Ui.dp(this,46),Ui.dp(this,46),Gravity.CENTER));JSONObject d=items.get(index);itemTitle.setText(d.optString("title","Document"));counter.setText((index+1)+" Of "+items.size());JSONArray pages=d.optJSONArray("pages");int total=pages==null?0:pages.length();side.setText(total+" Encrypted Page"+(total==1?"":"s"));if(animate){active.setAlpha(0);active.setTranslationY(-Ui.dp(this,46));active.setRotation(-4);}io.execute(()->{try{byte[] raw=repo.page(d,0);BitmapFactory.Options o=new BitmapFactory.Options();o.inSampleSize=sample(raw);Bitmap next=BitmapFactory.decodeByteArray(raw,0,raw.length,o);runOnUiThread(()->{if(isFinishing()){next.recycle();return;}image=next;active.removeAllViews();ImageView view=new ImageView(this);view.setImageBitmap(image);view.setScaleType(ImageView.ScaleType.CENTER_CROP);active.addView(view,new FrameLayout.LayoutParams(-1,-1));TextView badge=Ui.text(this,"ENCRYPTED",10,Color.WHITE);badge.setTypeface(null,android.graphics.Typeface.BOLD);badge.setGravity(Gravity.CENTER);badge.setBackground(Ui.bg(0xdd061f3b,Ui.dp(this,12)));FrameLayout.LayoutParams bp=new FrameLayout.LayoutParams(Ui.dp(this,86),Ui.dp(this,25),Gravity.TOP|Gravity.END);bp.setMargins(0,Ui.dp(this,12),Ui.dp(this,12),0);active.addView(badge,bp);ready=true;if(animate)active.animate().alpha(1).translationY(0).rotation(0).setDuration(280).start();});}catch(Exception ex){runOnUiThread(()->{active.removeAllViews();TextView err=Ui.text(this,"Could Not Decrypt This Item",15,0xffb3261e);err.setGravity(Gravity.CENTER);active.addView(err,new FrameLayout.LayoutParams(-1,-1));});}});}
+ private int sample(byte[] raw){BitmapFactory.Options b=new BitmapFactory.Options();b.inJustDecodeBounds=true;BitmapFactory.decodeByteArray(raw,0,raw.length,b);int s=1;while(Math.max(b.outWidth,b.outHeight)/s>1800)s*=2;return s;}
+ private void next(){if(!ready||items.size()<2){active.animate().translationY(Ui.dp(this,12)).setDuration(90).withEndAction(()->active.animate().translationY(0).setDuration(120).start()).start();return;}ready=false;active.animate().translationY(Ui.dp(this,520)).rotation(8).alpha(0).setDuration(240).withEndAction(()->{index=(index+1)%items.size();show(true);}).start();}
+ private void open(){if(!ready)return;JSONObject d=items.get(index);Class<?> destination=DocumentGroups.CARDS.equals(group)?BankCardActivity.class:DocumentActivity.class;startActivity(new Intent(this,destination).putExtra("id",d.optString("id")));}
+ private void empty(){active.removeAllViews();TextView t=Ui.text(this,"No "+group+" Saved Yet\n\nReturn To My Vault And Scan Your First Item",17,Ui.MUTED);t.setGravity(Gravity.CENTER);active.addView(t,new FrameLayout.LayoutParams(-1,-1));counter.setText("0 Saved Items");itemTitle.setText("Your Stack Is Ready");side.setText("Encrypted On This Phone");}
+ private void release(){if(image!=null&&!image.isRecycled())image.recycle();image=null;}
+ @Override protected void onResume(){super.onResume();if(!Session.valid())finish();else if(!items.isEmpty())load();}
+ @Override public boolean dispatchTouchEvent(MotionEvent e){if(Session.valid())Session.touch();return super.dispatchTouchEvent(e);}
+ @Override protected void onDestroy(){super.onDestroy();io.shutdownNow();release();}
 }
