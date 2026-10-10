@@ -1,0 +1,13 @@
+Secure Document Wallet 1.0
+
+- Creates a separate encrypted document vault for IDs, driver permits, certificates, medical records, financial records, and other important documents.
+- Requires strong biometric authentication and a private six-digit PIN before opening the vault.
+- Uses Google ML Kit’s on-device scanner for automatic capture, corner detection, perspective crop, rotation, filters, shadow removal, and stain cleanup.
+- Groups front and back scans in one document and supports multi-page records.
+- Exports clean centered layouts as PDF or Microsoft Word, with front and back on one page or separate pages.
+- Supports Android printing and sharing to installed messaging, email, cloud, and social apps.
+- Encrypts every saved page and all document metadata with AES-256-GCM. Android backups and screenshots are disabled.
+- Adds opt-in encrypted cloud backup and restore after email verification.
+- Links to a free GitHub Pages PC portal with email verification, vault-PIN decryption, private previews, PDF download, print, sharing, and five-minute auto-lock.
+
+Backend storage policies, Android build and lint, encryption/export tests, JavaScript syntax, native Android render, GitHub Pages deployment, APK package, signature, and checksum were verified.
