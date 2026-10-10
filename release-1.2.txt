@@ -1,0 +1,10 @@
+My Vault 1.2
+
+- Rebuilt the homepage to match the approved preview.
+- Added the two-by-two ID / Permit, Certificates, Bank Cards, and Documents collage.
+- Added custom category, cloud settings, lock, scan, and document action icons.
+- Restyled recent-document rows, spacing, shadows, colors, and system bars.
+- Existing document categories are automatically mapped into the four new groups.
+- New scans now use the four new category names.
+
+Your encrypted documents, PIN, cloud backup, exports, and updater remain intact.

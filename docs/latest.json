@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 2,
-  "versionName": "1.1",
-  "publishedAt": "2026-10-10T16:54:21Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v1.1/My-Vault.apk",
-  "sha256": "4758f91c67b2c0ccf18bca950b3ea36ed4c9e67c2ef873ac504c83c1cb00c10c",
-  "sizeBytes": 4472342,
-  "notes": "My Vault 1.1 introduces the new app name and secure over-the-air updates. Your encrypted documents and PIN remain in place."
+  "versionCode": 3,
+  "versionName": "1.2",
+  "publishedAt": "2026-10-10T17:19:58Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v1.2/My-Vault.apk",
+  "sha256": "ae7e51795fbeab83d8adc28d8c4095cae7cc547e231ef11b11ceb73753cbe4d5",
+  "sizeBytes": 4479951,
+  "notes": "My Vault 1.2 introduces the preview-matched homepage with four polished tiles: ID / Permit, Certificates, Bank Cards, and Documents, plus redesigned recent-document cards and icons."
 }
