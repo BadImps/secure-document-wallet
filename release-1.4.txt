@@ -1,0 +1,12 @@
+My Vault 1.4
+
+- Renamed the homepage action to Scan.
+- A quick tap starts the normal automatic scanner.
+- Press and hold Scan for Document, Certificate, and Card profiles.
+- Document scans are prepared in an 8 × 11 portrait frame.
+- Certificate scans are prepared in an 11 × 8 landscape frame.
+- Card scans use a rounded bank-card frame.
+- Card capture guides you through the front first and the back second.
+- After both card sides are captured, choose Bank Cards or ID / Permit before encrypting and saving.
+
+ML Kit automatic edge detection, cleanup, encryption, cloud backup, export, and card flipping remain available.
