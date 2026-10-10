@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https://cdn.jsdelivr.net https://dicabrqcyogwfizepkyp.supabase.co; style-src 'self'; img-src 'self' blob: data:; object-src 'none'; base-uri 'none'; form-action 'self'">
-  <meta name="theme-color" content="#12372f"><title>Secure Document Wallet</title>
+  <meta name="theme-color" content="#12372f"><title>My Vault</title>
   <link rel="stylesheet" href="app.css">
 </head>
 <body>
-  <header><a class="brand" href="#"><span class="logo">✓</span><span>Secure Document Wallet<small>Private PC Portal</small></span></a><button id="lock" class="ghost hidden">Lock Vault</button></header>
+  <header><a class="brand" href="#"><span class="logo">✓</span><span>My Vault<small>Private PC Portal</small></span></a><button id="lock" class="ghost hidden">Lock Vault</button></header>
   <main>
     <section id="login" class="auth card">
       <div class="shield">✓</div><p class="eyebrow">TWO-STEP SECURITY</p><h1>Your documents,<br>securely within reach.</h1>
       <p class="lede">Receive a one-time code on your phone’s email app, then enter your private vault PIN. Your documents remain encrypted until both steps succeed.</p>
       <form id="emailForm"><label>Email address</label><div class="field"><span>✉</span><input id="email" type="email" autocomplete="email" placeholder="you@example.com" required></div><button class="primary">Send Verification Code</button></form>
       <form id="codeForm" class="hidden"><button type="button" id="backEmail" class="back">‹ Use another email</button><label>Verification code or secure link</label><div class="field"><input id="code" autocomplete="one-time-code" placeholder="000000 or paste the emailed link" required></div><p class="hint">We sent a free one-time verification email to <b id="sentTo"></b>. Paste its secure link here if it does not show a numeric code.</p><button class="primary">Verify Email</button></form>
-      <form id="pinForm" class="hidden"><p class="success">✓ Email verified</p><label>Private vault PIN</label><div class="field code"><input id="pin" type="password" inputmode="numeric" maxlength="6" placeholder="••••••" required></div><p class="hint">This PIN decrypts your files inside this browser. It is never sent to the server.</p><button class="primary">Open My Wallet</button></form>
+      <form id="pinForm" class="hidden"><p class="success">✓ Email verified</p><label>Private vault PIN</label><div class="field code"><input id="pin" type="password" inputmode="numeric" maxlength="6" placeholder="••••••" required></div><p class="hint">This PIN decrypts your files inside this browser. It is never sent to the server.</p><button class="primary">Open My Vault</button></form>
       <p id="message" role="status"></p><div class="trust"><span>🔒 End-to-end encrypted</span><span>◉ Private storage</span><span>⌛ Auto-lock</span></div>
     </section>
 
     <section id="wallet" class="hidden">
-      <div class="hero"><div><p class="eyebrow">YOUR PRIVATE VAULT</p><h1>My Secure Wallet</h1><p>Encrypted documents available from your phone and PC.</p></div><button id="refresh" class="secondary">↻ Refresh</button></div>
+      <div class="hero"><div><p class="eyebrow">YOUR PRIVATE VAULT</p><h1>My Vault</h1><p>Encrypted documents available from your phone and PC.</p></div><button id="refresh" class="secondary">↻ Refresh</button></div>
       <div class="category-grid"><div><b>▣</b><span>Identity</span></div><div><b>◆</b><span>Permits</span></div><div><b>✓</b><span>Certificates</span></div><div><b>●</b><span>Other</span></div></div>
       <div class="section-title"><div><h2>Your Documents</h2><p id="count">Loading encrypted vault…</p></div></div>
       <div id="documents" class="documents"></div>

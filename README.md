@@ -1,4 +1,4 @@
-# Secure Document Wallet
+# My Vault
 
 An offline-first Android document vault with automatic ML Kit scanning, encrypted storage, biometric plus PIN unlock, PDF/Word export, printing, sharing, encrypted cloud backup, and a two-step GitHub Pages PC portal.
 

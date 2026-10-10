@@ -1,0 +1,9 @@
+My Vault 1.1
+
+- Renamed the Android app and PC portal to My Vault.
+- Added automatic update checks after unlocking the vault.
+- Added Check For Updates to My Vault Settings.
+- Downloads are verified with SHA-256 before Android is allowed to open the installer.
+- Added the Android network and update-install permissions required for cloud access and in-app updates.
+
+Your existing encrypted documents and PIN remain in place when updating from version 1.0.
