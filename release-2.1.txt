@@ -1,0 +1,9 @@
+My Vault 2.1 adds the missing file-upload workflow:
+
+- Documents, Certificates, ID / Permit, and Bank Cards now display a visible Upload button.
+- Every category can import an image, a PDF, or a modern Microsoft Word .docx file.
+- PDF pages are rendered into encrypted page previews inside the existing stack.
+- Word text is converted into clean encrypted document-page previews.
+- Imported items receive a name before encryption and remain editable, croppable, printable, and exportable through the existing controls.
+
+Validation: clean Android build, unit tests, and Android lint all pass.

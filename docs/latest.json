@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 11,
-  "versionName": "2.0",
-  "publishedAt": "2026-10-11T00:06:28Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v2.0/My-Vault-2.0.apk",
-  "sha256": "1c6175649ae644ad90f19ea6ba176a9cb270f14528f5f0207087a9f83b69418a",
-  "sizeBytes": 48993237,
-  "notes": "My Vault 2.0 adds separate Personal Information and Media tiles. Personal Information supports encrypted manual entries and on-device OCR with a WhatsApp-style list. Media privately encrypts imported photos, videos, and voice notes outside Gallery and Photos. This release also fixes category back navigation and adds a secure landscape hold-to-enlarge viewer for IDs and bank cards."
+  "versionCode": 12,
+  "versionName": "2.1",
+  "publishedAt": "2026-10-11T00:31:06Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v2.1/My-Vault-2.1.apk",
+  "sha256": "b74e26f7edf48afecae690a9bdb5097aac04ea1f5eb226c679f8b40d44e09e18",
+  "sizeBytes": 49009621,
+  "notes": "My Vault 2.1 adds the missing Upload control to Documents, Certificates, ID / Permit, and Bank Cards. Every category can import images, PDFs, and modern Word .docx files. PDFs and Word documents are converted into encrypted preview pages that appear directly in the existing card or document stack."
 }
