@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 13,
-  "versionName": "2.2",
-  "publishedAt": "2026-10-11T00:46:50Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v2.2/My-Vault-2.2.apk",
-  "sha256": "150ea105b1b25fb6c381449a30f1985e1752615b45cb7c5c099f20448c0cbf10",
-  "sizeBytes": 49009665,
-  "notes": "My Vault 2.2 introduces a vibrant redesigned homepage, faster and more responsive flick-down stack navigation, direct Samsung Gallery selection for image imports with an Android fallback, and a landscape ID/card viewer that flips front and back when tapped and closes only from the X or system Back."
+  "versionCode": 14,
+  "versionName": "2.3",
+  "publishedAt": "2026-10-11T01:30:06Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v2.3/My-Vault-2.3.apk",
+  "sha256": "a7b1923ea279a3272dfa24c317df86294175d5ab7c0c116148e5b3b774ce8672",
+  "sizeBytes": 49009705,
+  "notes": "My Vault 2.3 adds a guided gallery import for ID/Permit and Bank Cards. Crop the front, choose whether the item has a back, crop the back when present, then add its title before encryption. Word DOCX import now handles readable text and embedded images more reliably. Uploaded PDF and DOCX files now turn through their pages when tapped instead of using card-style front/back flipping."
 }
