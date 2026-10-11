@@ -1,0 +1,9 @@
+My Vault 2.2 refreshes the visual experience and card controls:
+
+- A lively new homepage with a teal hero header, six colorful gradient vault spaces, brighter icon wells, and a gold scan action.
+- Flick down requires less movement and uses much faster outgoing and incoming animations.
+- Image uploads open Samsung Gallery directly on Samsung devices, with the standard Android image picker as a fallback.
+- The landscape ID and bank-card viewer now flips between front and back when tapped.
+- Enlarge mode includes a clear X close control; tapping the card no longer exits the viewer.
+
+Validation: clean Android build, unit tests, and Android lint all pass.
