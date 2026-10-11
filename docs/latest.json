@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 14,
-  "versionName": "2.3",
-  "publishedAt": "2026-10-11T01:30:06Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v2.3/My-Vault-2.3.apk",
-  "sha256": "a7b1923ea279a3272dfa24c317df86294175d5ab7c0c116148e5b3b774ce8672",
-  "sizeBytes": 49009705,
-  "notes": "My Vault 2.3 adds a guided gallery import for ID/Permit and Bank Cards. Crop the front, choose whether the item has a back, crop the back when present, then add its title before encryption. Word DOCX import now handles readable text and embedded images more reliably. Uploaded PDF and DOCX files now turn through their pages when tapped instead of using card-style front/back flipping."
+  "versionCode": 15,
+  "versionName": "2.4",
+  "publishedAt": "2026-10-11T13:05:43Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v2.4/My-Vault-2.4.apk",
+  "sha256": "db5731eda321244c266d0262a442cbc3c8dff770e0c7cd27b6d0da2c2f3c6eb5",
+  "sizeBytes": 49026089,
+  "notes": "My Vault 2.4 keeps the Documents stack focused on a first-page preview; tapping the preview opens the complete document. New PDF and Word DOCX uploads now retain an encrypted copy of the original file. Exporting a newly uploaded DOCX returns that original byte-for-byte so its styles, fonts, spacing, tables, headers, and page layout are not rebuilt by My Vault. The receiving device still needs the fonts used by the document to display them identically."
 }
