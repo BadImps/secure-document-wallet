@@ -1,0 +1,1 @@
+My Vault 2.5 adds an Open Word action for DOCX files imported with My Vault 2.4 or later. It decrypts a temporary copy of the untouched original and opens it directly in Microsoft Word or another compatible office app, preserving the original Word layout and font handling instead of showing the simplified vault preview.
