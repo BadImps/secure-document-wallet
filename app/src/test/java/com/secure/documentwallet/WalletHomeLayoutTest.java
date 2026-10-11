@@ -16,11 +16,11 @@ import static org.junit.Assert.*;
 @Config(sdk=35,application=Application.class,qualifiers="mdpi")
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 public class WalletHomeLayoutTest {
- @Test public void homeShowsFourCategoryTilesWithoutRecentDocuments()throws Exception{
+ @Test public void homeShowsSixCategoryTilesWithoutRecentDocuments()throws Exception{
   Application app=RuntimeEnvironment.getApplication();PinSecurity security=new PinSecurity(app);if(!security.configured())security.set("1234");Session.unlock("1234",security.vaultSalt());
   var controller=Robolectric.buildActivity(MainActivity.class).create().start().resume();MainActivity activity=controller.get();ReflectionHelpers.callInstanceMethod(activity,"home");View root=activity.getWindow().getDecorView();
   int w=390,h=844;root.measure(View.MeasureSpec.makeMeasureSpec(w,View.MeasureSpec.EXACTLY),View.MeasureSpec.makeMeasureSpec(h,View.MeasureSpec.EXACTLY));root.layout(0,0,w,h);
-  assertTrue(hasText(root,"ID / Permit"));assertTrue(hasText(root,"Certificates"));assertTrue(hasText(root,"Bank Cards"));assertTrue(hasText(root,"Documents"));assertFalse(hasText(root,"Recent Documents"));
+  assertTrue(hasText(root,"ID / Permit"));assertTrue(hasText(root,"Certificates"));assertTrue(hasText(root,"Bank Cards"));assertTrue(hasText(root,"Documents"));assertTrue(hasText(root,"Personal Information"));assertTrue(hasText(root,"Media"));assertFalse(hasText(root,"Recent Documents"));
   Bitmap image=Bitmap.createBitmap(w,h,Bitmap.Config.ARGB_8888);root.draw(new Canvas(image));File out=new File("build/wallet-home-1.9.png");out.getParentFile().mkdirs();try(FileOutputStream stream=new FileOutputStream(out)){image.compress(Bitmap.CompressFormat.PNG,100,stream);}assertTrue(out.length()>10000);
   controller.pause().stop().destroy();Session.lock();
  }

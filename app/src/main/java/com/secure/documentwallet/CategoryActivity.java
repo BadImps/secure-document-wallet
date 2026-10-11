@@ -5,6 +5,7 @@ import android.graphics.*;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.*;
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.FragmentActivity;
 import org.json.*;
 import java.util.*;
@@ -16,14 +17,16 @@ public class CategoryActivity extends FragmentActivity {
  private final ArrayList<JSONObject> items=new ArrayList<>();
  private VaultRepository repo; private String group; private int index; private boolean ready;
  private FrameLayout active,rearNear,rearDeep; private TextView itemTitle,counter,side;
- private Bitmap faceImage,reverseImage,rearNearImage,rearDeepImage; private float downY; private boolean showingBack;
+ private Bitmap faceImage,reverseImage,rearNearImage,rearDeepImage; private float downX,downY; private boolean showingBack,longPressTriggered;
+ private final android.os.Handler gestures=new android.os.Handler(android.os.Looper.getMainLooper());
+ private final Runnable enlargeGesture=()->{if(ready&&(DocumentGroups.CARDS.equals(group)||DocumentGroups.ID.equals(group))){longPressTriggered=true;openLandscapeViewer();}};
 
- @Override public void onCreate(Bundle b){super.onCreate(b);Ui.safeScreen(this);Ui.lightBars(this);if(!Session.valid()){finish();return;}group=getIntent().getStringExtra("group");if(group==null)group=DocumentGroups.DOCUMENTS;repo=new VaultRepository(this);build();load();}
+ @Override public void onCreate(Bundle b){super.onCreate(b);Ui.safeScreen(this);Ui.lightBars(this);if(!Session.valid()){finish();return;}getOnBackPressedDispatcher().addCallback(this,new OnBackPressedCallback(true){@Override public void handleOnBackPressed(){goHome();}});group=getIntent().getStringExtra("group");if(group==null)group=DocumentGroups.DOCUMENTS;repo=new VaultRepository(this);build();load();}
 
  private void build(){
   LinearLayout page=Ui.column(this);page.setBackgroundColor(0xfffbfaf6);page.setPadding(Ui.dp(this,18),Ui.dp(this,14),Ui.dp(this,18),Ui.dp(this,24));
   LinearLayout bar=new LinearLayout(this);bar.setGravity(Gravity.CENTER_VERTICAL);
-  TextView back=Ui.text(this,"‹",40,0xff061f3b);back.setGravity(Gravity.CENTER);back.setContentDescription("Back To My Vault");back.setOnClickListener(v->finish());bar.addView(back,new LinearLayout.LayoutParams(Ui.dp(this,48),Ui.dp(this,54)));
+  TextView back=Ui.text(this,"‹",40,0xff061f3b);back.setGravity(Gravity.CENTER);back.setContentDescription("Back To My Vault");back.setOnClickListener(v->goHome());bar.addView(back,new LinearLayout.LayoutParams(Ui.dp(this,48),Ui.dp(this,54)));
   ImageView icon=new ImageView(this);icon.setImageResource(DocumentGroups.icon(group));icon.setPadding(Ui.dp(this,8),Ui.dp(this,8),Ui.dp(this,8),Ui.dp(this,8));icon.setBackground(Ui.bg(DocumentGroups.color(group),Ui.dp(this,28)));bar.addView(icon,new LinearLayout.LayoutParams(Ui.dp(this,52),Ui.dp(this,52)));
   LinearLayout names=Ui.column(this);names.setPadding(Ui.dp(this,13),0,0,0);TextView heading=Ui.title(this,group,25);heading.setTextColor(0xff061f3b);names.addView(heading);counter=Ui.text(this,"Opening Secure Stack…",13,0xff727a87);names.addView(counter);bar.addView(names,new LinearLayout.LayoutParams(0,-2,1));page.addView(bar);
   TextView instruction=Ui.text(this,"Tap To Flip  ·  Flick Down For Next",14,Ui.TEAL);instruction.setTypeface(null,android.graphics.Typeface.BOLD);instruction.setGravity(Gravity.CENTER);instruction.setPadding(0,Ui.dp(this,20),0,Ui.dp(this,12));page.addView(instruction);
@@ -38,9 +41,9 @@ public class CategoryActivity extends FragmentActivity {
   int deckHeight=faceHeight+Ui.dp(this,42);
   FrameLayout deck=new FrameLayout(this);deck.setClipChildren(false);
   rearDeep=layer(.56f,.91f,31);rearNear=layer(.78f,.96f,17);deck.addView(rearDeep,params(faceHeight,18));deck.addView(rearNear,params(faceHeight,9));
-  active=new FrameLayout(this);active.setBackground(Ui.stroke(Color.WHITE,Ui.dp(this,1),0xffd8c47b,Ui.dp(this,22)));active.setClipToOutline(true);active.setElevation(Ui.dp(this,11));active.setCameraDistance(Ui.dp(this,9000));active.setOnClickListener(v->flip());active.setOnTouchListener((v,e)->{if(e.getActionMasked()==MotionEvent.ACTION_DOWN){downY=e.getY();return true;}if(e.getActionMasked()==MotionEvent.ACTION_UP){if(e.getY()-downY>Ui.dp(this,58))next();else v.performClick();return true;}return true;});deck.addView(active,params(faceHeight,0));page.addView(deck,new LinearLayout.LayoutParams(-1,deckHeight));
+  active=new FrameLayout(this);active.setBackground(Ui.stroke(Color.WHITE,Ui.dp(this,1),0xffd8c47b,Ui.dp(this,22)));active.setClipToOutline(true);active.setElevation(Ui.dp(this,11));active.setCameraDistance(Ui.dp(this,9000));active.setOnClickListener(v->flip());active.setOnTouchListener((v,e)->{int action=e.getActionMasked();if(action==MotionEvent.ACTION_DOWN){downX=e.getX();downY=e.getY();longPressTriggered=false;if(DocumentGroups.CARDS.equals(group)||DocumentGroups.ID.equals(group))gestures.postDelayed(enlargeGesture,480);return true;}if(action==MotionEvent.ACTION_MOVE){if(Math.abs(e.getX()-downX)>Ui.dp(this,18)||Math.abs(e.getY()-downY)>Ui.dp(this,18))gestures.removeCallbacks(enlargeGesture);return true;}if(action==MotionEvent.ACTION_UP){gestures.removeCallbacks(enlargeGesture);if(longPressTriggered)return true;if(e.getY()-downY>Ui.dp(this,58))next();else v.performClick();return true;}if(action==MotionEvent.ACTION_CANCEL){gestures.removeCallbacks(enlargeGesture);return true;}return true;});deck.addView(active,params(faceHeight,0));page.addView(deck,new LinearLayout.LayoutParams(-1,deckHeight));
   itemTitle=Ui.title(this,"",20);itemTitle.setTextColor(0xff061f3b);itemTitle.setGravity(Gravity.CENTER);page.addView(itemTitle);side=Ui.text(this,"Encrypted On This Phone",13,Ui.MUTED);side.setGravity(Gravity.CENTER);side.setPadding(0,Ui.dp(this,5),0,0);page.addView(side);
-  TextView hint=Ui.text(this,"Tap to view the next side or page. Flick down to bring the next saved item to the front.",13,Ui.MUTED);hint.setGravity(Gravity.CENTER);hint.setLineSpacing(0,1.12f);hint.setPadding(Ui.dp(this,16),Ui.dp(this,12),Ui.dp(this,16),Ui.dp(this,12));page.addView(hint);TextView actions=Ui.pill(this,"Edit, Crop And Export",Ui.TEAL);actions.setOnClickListener(v->edit());page.addView(actions,new LinearLayout.LayoutParams(-1,Ui.dp(this,52)));setContentView(page);
+  String hintText=(DocumentGroups.CARDS.equals(group)||DocumentGroups.ID.equals(group))?"Tap to flip. Flick down for the next saved item. Press and hold to open the current side full-screen in landscape.":"Tap to view the next side or page. Flick down to bring the next saved item to the front.";TextView hint=Ui.text(this,hintText,13,Ui.MUTED);hint.setGravity(Gravity.CENTER);hint.setLineSpacing(0,1.12f);hint.setPadding(Ui.dp(this,16),Ui.dp(this,12),Ui.dp(this,16),Ui.dp(this,12));page.addView(hint);TextView actions=Ui.pill(this,"Edit, Crop And Export",Ui.TEAL);actions.setOnClickListener(v->edit());page.addView(actions,new LinearLayout.LayoutParams(-1,Ui.dp(this,52)));setContentView(page);
  }
 
  private FrameLayout layer(float alpha,float scale,int drop){FrameLayout v=new FrameLayout(this);v.setBackground(Ui.stroke(DocumentGroups.color(group),Ui.dp(this,1),0xffbfd4cf,Ui.dp(this,22)));v.setClipToOutline(true);v.setAlpha(alpha);v.setScaleX(scale);v.setTranslationY(Ui.dp(this,drop));v.setElevation(Ui.dp(this,3));return v;}
@@ -58,9 +61,11 @@ public class CategoryActivity extends FragmentActivity {
  private void next(){if(!ready||items.size()<2){active.animate().translationY(Ui.dp(this,12)).setDuration(90).withEndAction(()->active.animate().translationY(0).setDuration(120).start()).start();return;}ready=false;active.animate().translationY(Ui.dp(this,420)).rotation(7).alpha(0).setDuration(235).withEndAction(()->{index=(index+1)%items.size();show(true);}).start();}
  private void flip(){if(!ready||reverseImage==null){active.animate().scaleX(.98f).scaleY(.98f).setDuration(85).withEndAction(()->active.animate().scaleX(1).scaleY(1).setDuration(110).start()).start();return;}active.setEnabled(false);active.animate().rotationY(90).setDuration(165).withEndAction(()->{showingBack=!showingBack;putImage(active,showingBack?reverseImage:faceImage,showingBack?"BACK":"FRONT");side.setText(showingBack?"Back Or Page 2":"Front Or Page 1");active.setRotationY(-90);active.animate().rotationY(0).setDuration(190).withEndAction(()->active.setEnabled(true)).start();}).start();}
  private void edit(){if(items.isEmpty())return;JSONObject d=items.get(index);startActivity(new Intent(this,DocumentActivity.class).putExtra("id",d.optString("id")));}
+ private void openLandscapeViewer(){if(items.isEmpty())return;JSONObject d=items.get(index);startActivity(new Intent(this,CardFullscreenActivity.class).putExtra("id",d.optString("id")).putExtra("page",showingBack?1:0).putExtra("title",d.optString("title",group)));}
+ private void goHome(){Intent home=new Intent(this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);startActivity(home);finish();}
  private void empty(){active.removeAllViews();rearNear.removeAllViews();rearDeep.removeAllViews();TextView t=Ui.text(this,"No "+group+" Saved Yet\n\nReturn To My Vault And Scan Your First Item",17,Ui.MUTED);t.setGravity(Gravity.CENTER);active.addView(t,new FrameLayout.LayoutParams(-1,-1));counter.setText("0 Saved Items");itemTitle.setText("Your Stack Is Ready");side.setText("Encrypted On This Phone");}
  private void releaseImages(){for(Bitmap b:new Bitmap[]{faceImage,reverseImage,rearNearImage,rearDeepImage})if(b!=null&&!b.isRecycled())b.recycle();faceImage=reverseImage=rearNearImage=rearDeepImage=null;}
  @Override protected void onResume(){super.onResume();if(!Session.valid())finish();else if(!items.isEmpty())load();}
  @Override public boolean dispatchTouchEvent(MotionEvent e){if(Session.valid())Session.touch();return super.dispatchTouchEvent(e);}
- @Override protected void onDestroy(){super.onDestroy();io.shutdownNow();releaseImages();}
+ @Override protected void onDestroy(){gestures.removeCallbacks(enlargeGesture);super.onDestroy();io.shutdownNow();releaseImages();}
 }

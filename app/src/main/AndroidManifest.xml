@@ -14,7 +14,14 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="false"
         android:theme="@style/AppTheme">
+        <activity android:name=".PrivateMediaActivity" android:exported="false" />
+        <activity android:name=".PersonalInformationActivity" android:exported="false" />
         <activity android:name=".BankCardActivity" android:exported="false" />
+        <activity
+            android:name=".CardFullscreenActivity"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/AppTheme.Fullscreen" />
         <activity android:name=".EditDocumentActivity" android:exported="false" />
         <activity android:name=".CategoryActivity" android:exported="false" />
         <activity android:name=".DocumentActivity" android:exported="false" />
