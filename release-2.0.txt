@@ -1,0 +1,8 @@
+My Vault 2.0 adds two private vault areas:
+
+- Personal Information: add and edit encrypted information, extract text from scanned documents or notes with on-device OCR, copy entries, and manage them in a WhatsApp-style list.
+- Media: import encrypted photos, videos, and voice notes into private app storage that is not added to Gallery or Photos.
+- IDs and bank cards now support press-and-hold landscape viewing at natural proportions.
+- Back navigation from all four document categories now returns directly to the My Vault homepage while the secure session remains active.
+
+Validation: clean Android build, unit tests, and Android lint all pass.

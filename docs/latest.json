@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 10,
-  "versionName": "1.9",
-  "publishedAt": "2026-10-10T19:11:52Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v1.9/My-Vault-1.9.apk",
-  "sha256": "460806ae33057e1cd6d813b3ec7ebbd7a91fbff77a45693b0a62314de7c088fb",
-  "sizeBytes": 6258018,
-  "notes": "My Vault 1.9 removes Recent Documents, adds an animated in-app PIN keypad that cannot be covered by the keyboard, and unifies every category into one tap-to-flip, flick-down stack with Edit, Crop And Export at the bottom."
+  "versionCode": 11,
+  "versionName": "2.0",
+  "publishedAt": "2026-10-11T00:06:28Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v2.0/My-Vault-2.0.apk",
+  "sha256": "1c6175649ae644ad90f19ea6ba176a9cb270f14528f5f0207087a9f83b69418a",
+  "sizeBytes": 48993237,
+  "notes": "My Vault 2.0 adds separate Personal Information and Media tiles. Personal Information supports encrypted manual entries and on-device OCR with a WhatsApp-style list. Media privately encrypts imported photos, videos, and voice notes outside Gallery and Photos. This release also fixes category back navigation and adds a secure landscape hold-to-enlarge viewer for IDs and bank cards."
 }
