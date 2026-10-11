@@ -9,7 +9,13 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
+import android.view.Gravity;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import org.json.JSONObject;
@@ -110,12 +116,14 @@ final class UpdateManager {
                     .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                     .setDestinationUri(Uri.fromFile(apk));
             long downloadId = manager.enqueue(request);
-            Ui.toast(activity, "My Vault Update Is Downloading");
+            DownloadProgress progress = new DownloadProgress(activity, manager, downloadId, expectedSize, feed.optString("versionName", "Update"));
+            progress.show();
             BroadcastReceiver receiver = new BroadcastReceiver() {
                 @Override public void onReceive(Context context, Intent intent) {
                     if (intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1L) != downloadId) return;
                     try { activity.unregisterReceiver(this); } catch (Exception ignored) {}
-                    verifyAndInstall(activity, manager, downloadId, apk, expectedHash, expectedSize);
+                    progress.verifying();
+                    verifyAndInstall(activity, manager, downloadId, apk, expectedHash, expectedSize, progress);
                 }
             };
             ContextCompat.registerReceiver(activity, receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE), ContextCompat.RECEIVER_NOT_EXPORTED);
@@ -124,7 +132,7 @@ final class UpdateManager {
         }
     }
 
-    private static void verifyAndInstall(MainActivity activity, DownloadManager manager, long id, File apk, String expectedHash, long expectedSize) {
+    private static void verifyAndInstall(MainActivity activity, DownloadManager manager, long id, File apk, String expectedHash, long expectedSize, DownloadProgress progress) {
         IO.execute(() -> {
             try {
                 try (Cursor cursor = manager.query(new DownloadManager.Query().setFilterById(id))) {
@@ -133,12 +141,22 @@ final class UpdateManager {
                 }
                 if (!apk.isFile() || (expectedSize >= 0 && apk.length() != expectedSize)) throw new SecurityException("The update file size did not match");
                 if (!sha256(apk).equalsIgnoreCase(expectedHash)) throw new SecurityException("The update could not be verified");
-                activity.runOnUiThread(() -> install(activity, apk));
+                activity.runOnUiThread(() -> { progress.close(); install(activity, apk); });
             } catch (Exception error) {
                 if (apk.exists()) apk.delete();
-                activity.runOnUiThread(() -> new AlertDialog.Builder(activity).setTitle("Update Stopped").setMessage(safeMessage(error) + ". My Vault did not open the unverified file.").setPositiveButton("OK", null).show());
+                activity.runOnUiThread(() -> { progress.close(); new AlertDialog.Builder(activity).setTitle("Update Stopped").setMessage(safeMessage(error) + ". My Vault did not open the unverified file.").setPositiveButton("OK", null).show(); });
             }
         });
+    }
+
+    private static final class DownloadProgress {
+        private final MainActivity activity;private final DownloadManager manager;private final long id,expectedSize;private final String version;private final Handler handler=new Handler(Looper.getMainLooper());private AlertDialog dialog;private ProgressBar bar;private TextView status;private boolean polling=true;
+        DownloadProgress(MainActivity activity,DownloadManager manager,long id,long expectedSize,String version){this.activity=activity;this.manager=manager;this.id=id;this.expectedSize=expectedSize;this.version=version;}
+        void show(){LinearLayout content=Ui.column(activity);content.setPadding(Ui.dp(activity,22),Ui.dp(activity,8),Ui.dp(activity,22),Ui.dp(activity,8));status=Ui.text(activity,"Starting Download…",14,Ui.INK);status.setGravity(Gravity.CENTER);content.addView(status);bar=new ProgressBar(activity,null,android.R.attr.progressBarStyleHorizontal);bar.setMax(1000);bar.setProgress(0);LinearLayout.LayoutParams bp=new LinearLayout.LayoutParams(-1,Ui.dp(activity,18));bp.setMargins(0,Ui.dp(activity,18),0,Ui.dp(activity,10));content.addView(bar,bp);TextView note=Ui.text(activity,"You may hide this window. The verified installer will open when the download finishes.",12,Ui.MUTED);note.setGravity(Gravity.CENTER);content.addView(note);dialog=new AlertDialog.Builder(activity).setTitle("Downloading My Vault "+version).setView(content).setNegativeButton("Hide",null).create();dialog.setOnDismissListener(d->{polling=false;handler.removeCallbacksAndMessages(null);});dialog.show();handler.post(this::poll);}
+        private void poll(){if(!polling||activity.isFinishing())return;try(Cursor cursor=manager.query(new DownloadManager.Query().setFilterById(id))){if(cursor.moveToFirst()){int state=cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));long downloaded=cursor.getLong(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR)),reported=cursor.getLong(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_TOTAL_SIZE_BYTES)),total=reported>0?reported:expectedSize;if(state==DownloadManager.STATUS_RUNNING&&total>0){int value=(int)Math.min(1000,downloaded*1000L/total);bar.setIndeterminate(false);bar.setProgress(value);status.setText((value/10)+"%  ·  "+size(downloaded)+" Of "+size(total));}else if(state==DownloadManager.STATUS_PAUSED){bar.setIndeterminate(true);status.setText("Download Paused · Waiting For Network");}else if(state==DownloadManager.STATUS_PENDING){bar.setIndeterminate(true);status.setText("Preparing Secure Download…");}else if(state==DownloadManager.STATUS_SUCCESSFUL){bar.setIndeterminate(true);status.setText("Download Complete · Verifying…");}else if(state==DownloadManager.STATUS_FAILED){bar.setIndeterminate(false);status.setText("Download Could Not Be Completed");}}}catch(Exception ignored){}if(polling)handler.postDelayed(this::poll,350);}
+        void verifying(){handler.post(()->{if(dialog!=null&&dialog.isShowing()){bar.setIndeterminate(true);status.setText("Download Complete · Verifying Signature…");}});}
+        void close(){polling=false;handler.removeCallbacksAndMessages(null);if(dialog!=null&&dialog.isShowing())dialog.dismiss();}
+        private static String size(long bytes){if(bytes<0)return "Unknown";double mb=bytes/(1024d*1024d);return String.format(Locale.US,"%.1f MB",mb);}
     }
 
     private static String sha256(File file) throws Exception {

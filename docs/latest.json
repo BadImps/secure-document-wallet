@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 17,
-  "versionName": "2.6",
-  "publishedAt": "2026-10-11T13:38:17Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v2.6/My-Vault-2.6.apk",
-  "sha256": "2fbf424cdc2f400165e86d4b5816b48e7baaf82ed2bc988f979f29a5314bf607",
+  "versionCode": 18,
+  "versionName": "2.7",
+  "publishedAt": "2026-10-11T13:56:22Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v2.7/My-Vault-2.7.apk",
+  "sha256": "ee9032f20282372cb0ae086d6ef79643dadd3509034e74650154ddc97a072dfa",
   "sizeBytes": 49026089,
-  "notes": "My Vault 2.6 adds accurate companion previews for Word documents. Word upload is now a guided two-file flow: select the untouched DOCX, then select a PDF exported from that same document. My Vault encrypts the original DOCX unchanged and uses the PDF pages for the in-app preview. Open Word continues to open the exact original file. DOCX files without a PDF companion display a secure Word file card instead of a misleading reconstructed preview."
+  "notes": "My Vault 2.7 stores uploaded Word DOCX files as untouched encrypted originals without generating a content preview. Word files appear as secure document cards with Open Word and Share actions. PDFs and scanned files retain visual previews. OTA downloads now display an in-app progress window with percentage, downloaded size, and verification status before the Android installer opens."
 }
