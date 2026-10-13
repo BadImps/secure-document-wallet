@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 25,
-  "versionName": "3.4",
-  "publishedAt": "2026-10-13T16:43:16Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.4/My-Vault-3.4.apk",
-  "sha256": "1c1578ef37715d62f1395822cb03d9a97d26af73c45c3e0e3dc4934329e9e458",
-  "sizeBytes": 49076380,
-  "notes": "My Vault 3.4 removes Suggested, replaces compact text filters with accessible icons, keeps top and bottom navigation clear of phone system bars, adds theme-reactive emissive tiles, and gives popup menus rounder corners with stronger shadows."
+  "versionCode": 26,
+  "versionName": "3.5",
+  "publishedAt": "2026-10-13T20:43:56Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.5/My-Vault-3.5.apk",
+  "sha256": "3d71b043555dd8f6ac56690d77b02b6f98b748446d6478fb8050c93c028979ea",
+  "sizeBytes": 49076376,
+  "notes": "My Vault 3.5 gives the home tiles thicker uninterrupted shadows, adds safe drawing space around their rounded edges, and fixes the raised centre Scan button so its top edge and shadow display completely."
 }
