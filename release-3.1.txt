@@ -1,0 +1,12 @@
+My Vault 3.1
+
+- Introduces Aegis Blue as the new professional default for new installations.
+- Rebuilds the home screen with a real vault-health panel and current backup status.
+- Replaces the decorative colored tile grid with restrained document-space cards and consistent hierarchy.
+- Keeps every existing section: ID / Permit, Certificates, Bank Cards, Documents, Personal Information, and Media.
+- Refines the dark option into Obsidian Reserve with measured gold accents.
+- Refines the glass option into Lumen Glass with clean frosted surfaces.
+- Retains Emerald Institutional, Ocean Blue, and Warm Sand as additional theme choices.
+- Corrects compact-card wrapping and verifies layouts across all six themes.
+
+Validation: unit tests, six-theme phone-size render tests, Android lint, and APK assembly passed.

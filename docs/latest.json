@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 21,
-  "versionName": "3.0",
-  "publishedAt": "2026-10-13T09:10:59Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.0/My-Vault-3.0.apk",
-  "sha256": "9e2ab5c3cd656728da25f70c8d91eb7d83b9421b9e52d5910b51c402d27cfa58",
+  "versionCode": 22,
+  "versionName": "3.1",
+  "publishedAt": "2026-10-13T10:33:57Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.1/My-Vault-3.1.apk",
+  "sha256": "542967b5cca93a1b86fb49563bfdb95ab66f258a2b178f23d92737cc614f64db",
   "sizeBytes": 49043352,
-  "notes": "My Vault 3.0 adds flick-up navigation for the previous saved item, Dark Vault and Liquid Glass themes, stronger rounded popup menus, a clear backup-account creation and connection flow, and a corrected PC portal backup lookup that no longer fails with a single-JSON coercion error."
+  "notes": "My Vault 3.1 introduces the professional Aegis home design with a real vault-health panel, cleaner document spaces, consistent compact cards, and refined Obsidian Reserve and Lumen Glass themes alongside the existing palettes."
 }
