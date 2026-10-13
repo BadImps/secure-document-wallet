@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 22,
-  "versionName": "3.1",
-  "publishedAt": "2026-10-13T10:33:57Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.1/My-Vault-3.1.apk",
-  "sha256": "542967b5cca93a1b86fb49563bfdb95ab66f258a2b178f23d92737cc614f64db",
-  "sizeBytes": 49043352,
-  "notes": "My Vault 3.1 introduces the professional Aegis home design with a real vault-health panel, cleaner document spaces, consistent compact cards, and refined Obsidian Reserve and Lumen Glass themes alongside the existing palettes."
+  "versionCode": 23,
+  "versionName": "3.2",
+  "publishedAt": "2026-10-13T14:08:06Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.2/My-Vault-3.2.apk",
+  "sha256": "b92483d6384d0e474d96c31503c40c8bafc1d6e241968273cbf05aaf53147e3c",
+  "sizeBytes": 49059956,
+  "notes": "My Vault 3.2 applies the V8 Search Command Centre design across the app and adds Expiry Centre, Secure Share Hub, Emergency Access Kit, and Vault Activity while preserving encrypted storage, scanning, OCR, backups, PC access, and OTA updates."
 }
