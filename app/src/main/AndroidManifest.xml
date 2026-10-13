@@ -27,6 +27,7 @@
         <activity android:name=".AppearanceActivity" android:exported="false" />
         <activity android:name=".VaultSettingsActivity" android:exported="false" />
         <activity android:name=".CardImportWizardActivity" android:exported="false" />
+        <activity android:name=".DocumentDetailsWizardActivity" android:exported="false" />
         <activity android:name=".PrivateMediaActivity" android:exported="false" />
         <activity android:name=".PersonalInformationActivity" android:exported="false" />
         <activity android:name=".BankCardActivity" android:exported="false" />

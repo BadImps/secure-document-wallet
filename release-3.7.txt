@@ -1,0 +1,11 @@
+My Vault 3.7 adds the guided Document Details wizard.
+
+- Added a Document Details icon before the plus button on ID / Permit, Bank Cards, and Certificates.
+- Added private on-device OCR from already saved front and back images.
+- Driver's Permit OCR reads Issue Date, Expiry Date, and Licence Number labels.
+- National Identification Card OCR reads Date Of Issue, Expiry Date, and Registration Number labels.
+- Bank Card OCR asks for the issuer, reads Good Thru or Valid Thru, and converts MM/YY into Month/YYYY.
+- Added category-specific manual forms with numeric-only document numbers.
+- Added calendar selectors for full dates and month/year card expiry dates.
+- Added editable OCR review before saving and secure fallbacks when a label cannot be read.
+- Added support for sorting and scheduling bank-card expiry dates stored as MM/YYYY or Month/YYYY.
