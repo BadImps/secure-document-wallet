@@ -1,0 +1,8 @@
+My Vault 3.4 refines the V8 interface across the app.
+
+- Removed the Suggested section from the home page.
+- Replaced Expiring Soon, Bank Cards, Certificates, and matching filter labels with accessible icons.
+- Added proper status-bar and navigation-bar spacing to prevent controls from being covered.
+- Made tiles react to every theme with brighter, theme-colored surfaces.
+- Upgraded popup menus with rounder corners, stronger elevation, and clearer shadows.
+- Corrected spacing and collision issues across compact phone layouts.
