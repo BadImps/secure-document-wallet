@@ -1,0 +1,8 @@
+My Vault 3.3 replaces the partial V8 refresh with the complete native Search Command Centre interface.
+
+- Rebuilds the homepage with the Aegis palette, compact command search, protected-space tiles, and persistent five-part navigation.
+- Replaces text and emoji shortcuts with a consistent native line-icon system.
+- Applies the V8 composition to ID and document stacks, Personal Information, Private Media, Search, Settings, Security, Devices, Appearance, Updates, Expiry Centre, Secure Share Hub, Emergency Access, and Vault Activity.
+- Restyles the PIN keypad and scan-type picker to match the same interface.
+- Adds screenshot-based visual verification for sixteen app-owned screens at a 390 x 844 phone viewport.
+- Preserves encrypted storage, scanning, OCR, card flipping, uploads, secure sharing, backups, PC access, and OTA updates.
