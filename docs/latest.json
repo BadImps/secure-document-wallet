@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 18,
-  "versionName": "2.7",
-  "publishedAt": "2026-10-11T13:56:22Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v2.7/My-Vault-2.7.apk",
-  "sha256": "ee9032f20282372cb0ae086d6ef79643dadd3509034e74650154ddc97a072dfa",
-  "sizeBytes": 49026089,
-  "notes": "My Vault 2.7 stores uploaded Word DOCX files as untouched encrypted originals without generating a content preview. Word files appear as secure document cards with Open Word and Share actions. PDFs and scanned files retain visual previews. OTA downloads now display an in-app progress window with percentage, downloaded size, and verification status before the Android installer opens."
+  "versionCode": 19,
+  "versionName": "2.8",
+  "publishedAt": "2026-10-13T02:22:53Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v2.8/My-Vault-2.8.apk",
+  "sha256": "90c4e213032a7c0528b44bb7dc43f75bfc4e68b3aacdec4d117ab58fab86e8cf",
+  "sizeBytes": 49042577,
+  "notes": "My Vault 2.8 adds a Safety, Recovery and Search update: random Android Keystore-protected vault encryption with automatic legacy migration, separate recovery codes for replacement-phone and PC access, backup health and verification, secure temporary-file cleanup, encrypted offline OCR search, document metadata and expiry reminders, and title-only Personal Information rows."
 }

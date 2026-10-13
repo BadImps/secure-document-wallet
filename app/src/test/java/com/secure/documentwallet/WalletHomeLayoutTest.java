@@ -24,5 +24,11 @@ public class WalletHomeLayoutTest {
   Bitmap image=Bitmap.createBitmap(w,h,Bitmap.Config.ARGB_8888);root.draw(new Canvas(image));File out=new File("build/wallet-home-1.9.png");out.getParentFile().mkdirs();try(FileOutputStream stream=new FileOutputStream(out)){image.compress(Bitmap.CompressFormat.PNG,100,stream);}assertTrue(out.length()>10000);
   controller.pause().stop().destroy();Session.lock();
  }
+ @Test public void personalInformationRowsShowOnlyTheirTitle()throws Exception{
+  Application app=RuntimeEnvironment.getApplication();PinSecurity security=new PinSecurity(app);if(!security.configured())security.set("1234");Session.unlock("1234",security.vaultSalt());
+  try{com.google.mlkit.common.MlKit.initialize(app);}catch(IllegalStateException alreadyInitialized){}
+  var controller=Robolectric.buildActivity(PersonalInformationActivity.class).create().start().resume();PersonalInformationActivity activity=controller.get();org.json.JSONObject item=new org.json.JSONObject().put("id","one").put("title","Insurance Number").put("body","SECRET-DETAIL-123").put("createdAt",System.currentTimeMillis());View row=ReflectionHelpers.callInstanceMethod(activity,"bubble",ReflectionHelpers.ClassParameter.from(org.json.JSONObject.class,item));
+  assertTrue(hasText(row,"Insurance Number"));assertFalse(hasText(row,"SECRET-DETAIL-123"));controller.pause().stop().destroy();Session.lock();
+ }
  private boolean hasText(View view,String expected){if(view instanceof TextView&&expected.contentEquals(((TextView)view).getText()))return true;if(view instanceof ViewGroup){ViewGroup group=(ViewGroup)view;for(int i=0;i<group.getChildCount();i++)if(hasText(group.getChildAt(i),expected))return true;}return false;}
 }
