@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 23,
-  "versionName": "3.2",
-  "publishedAt": "2026-10-13T14:08:06Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.2/My-Vault-3.2.apk",
-  "sha256": "b92483d6384d0e474d96c31503c40c8bafc1d6e241968273cbf05aaf53147e3c",
-  "sizeBytes": 49059956,
-  "notes": "My Vault 3.2 applies the V8 Search Command Centre design across the app and adds Expiry Centre, Secure Share Hub, Emergency Access Kit, and Vault Activity while preserving encrypted storage, scanning, OCR, backups, PC access, and OTA updates."
+  "versionCode": 24,
+  "versionName": "3.3",
+  "publishedAt": "2026-10-13T14:34:52Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.3/My-Vault-3.3.apk",
+  "sha256": "92a35d142ab40c4a3b8d1c02bf138e2ab92f6ba04f545b0f6be45a83e5a7883f",
+  "sizeBytes": 49076340,
+  "notes": "My Vault 3.3 replaces the partial refresh with the complete native V8 Search Command Centre interface, consistent line icons, persistent navigation, redesigned document stacks and tool pages, and screenshot-verified layouts across sixteen app-owned screens."
 }
