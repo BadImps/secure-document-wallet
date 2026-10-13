@@ -26,7 +26,7 @@ final class DocumentGroups {
     }
 
     static int color(String group) {
-        if (ID.equals(group)) return 0xffe7f8f4;
+        if (ID.equals(group)) return Ui.SOFT;
         if (CERTIFICATES.equals(group)) return 0xfffff6df;
         if (CARDS.equals(group)) return 0xffe8f6fc;
         return 0xffe5f2eb;
