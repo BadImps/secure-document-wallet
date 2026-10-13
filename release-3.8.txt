@@ -1,0 +1,5 @@
+My Vault 3.8 improves the Document Details review step.
+
+- Shows the scanned front, back, or bank card image above the editable OCR fields.
+- Fits the complete saved image inside a secure preview without cropping it.
+- Keeps the decrypted preview in memory only and releases it when the wizard step closes.
