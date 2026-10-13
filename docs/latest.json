@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 26,
-  "versionName": "3.5",
-  "publishedAt": "2026-10-13T20:43:56Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.5/My-Vault-3.5.apk",
-  "sha256": "3d71b043555dd8f6ac56690d77b02b6f98b748446d6478fb8050c93c028979ea",
+  "versionCode": 27,
+  "versionName": "3.6",
+  "publishedAt": "2026-10-13T21:28:03Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.6/My-Vault-3.6.apk",
+  "sha256": "2f0e7104310c3acdee6ce16ca0b6ca4c240e11edad73070e84dda6eede2676ce",
   "sizeBytes": 49076376,
-  "notes": "My Vault 3.5 gives the home tiles thicker uninterrupted shadows, adds safe drawing space around their rounded edges, and fixes the raised centre Scan button so its top edge and shadow display completely."
+  "notes": "My Vault 3.6 moves expiry information into each document category, sorts dated documents by expiry, adds red one-year alerts to the homepage, and fixes Edit and Crop actions."
 }
