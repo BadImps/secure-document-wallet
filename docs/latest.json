@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 28,
-  "versionName": "3.7",
-  "publishedAt": "2026-10-13T22:24:09Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.7/My-Vault-3.7.apk",
-  "sha256": "4400ff378ff38cea0b7b670a3225bee16a04e6faad54ee9f2ebf42c70cfe0e85",
+  "versionCode": 29,
+  "versionName": "3.8",
+  "publishedAt": "2026-10-13T22:50:53Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.8/My-Vault-3.8.apk",
+  "sha256": "589dba41a72163b13232e72d9b3cd1b34ee74f30ad7861243722b00568259ed2",
   "sizeBytes": 49092792,
-  "notes": "My Vault 3.7 adds a guided Document Details wizard for IDs, permits, bank cards, and certificates, with private on-device OCR, manual entry, date pickers, review before saving, and improved expiry tracking."
+  "notes": "My Vault 3.8 shows the scanned front, back, or bank card image during the Document Details review step, fitted without cropping and kept only in protected app memory."
 }
