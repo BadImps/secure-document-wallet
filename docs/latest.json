@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 20,
-  "versionName": "2.9",
-  "publishedAt": "2026-10-13T02:45:19Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v2.9/My-Vault-2.9.apk",
-  "sha256": "ec8b856482704a290766c6add6ae4a9e7c6388eae821046e42a116ef9a842c11",
-  "sizeBytes": 49043308,
-  "notes": "My Vault 2.9 introduces a complete visual facelift with a unified modern secure-wallet design, refined typography, rounded controls, stronger spacing and shadows, polished dialogs, coordinated document views, and three selectable themes: Emerald Vault, Ocean Blue, and Warm Sand."
+  "versionCode": 21,
+  "versionName": "3.0",
+  "publishedAt": "2026-10-13T09:10:59Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.0/My-Vault-3.0.apk",
+  "sha256": "9e2ab5c3cd656728da25f70c8d91eb7d83b9421b9e52d5910b51c402d27cfa58",
+  "sizeBytes": 49043352,
+  "notes": "My Vault 3.0 adds flick-up navigation for the previous saved item, Dark Vault and Liquid Glass themes, stronger rounded popup menus, a clear backup-account creation and connection flow, and a corrected PC portal backup lookup that no longer fails with a single-JSON coercion error."
 }

@@ -1,0 +1,11 @@
+My Vault 3.0
+
+- Flick down for the next saved item and flick up for the previous item.
+- Adds Dark Vault and Liquid Glass themes.
+- Gives popup menus larger rounded corners, borders, and stronger shadows.
+- Adds a clear create-or-connect backup account flow with saved email convenience.
+- Fixes the PC portal Cannot coerce the result to a single JSON object error when a backup profile is missing.
+- Keeps verification email links directed to the secure PC portal.
+- Preserves the existing app identity and update signing certificate.
+
+Validation: unit tests, five-theme render tests, Android lint, JavaScript syntax check, and APK assembly all passed.

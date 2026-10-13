@@ -15,5 +15,6 @@ final class Ui {
  static void toast(Context c,String s){Toast.makeText(c,s,Toast.LENGTH_LONG).show();}
  static void safeScreen(android.app.Activity a){ThemeManager.apply(a);a.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);a.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);darkBars(a);}
  static void darkBars(android.app.Activity a){a.getWindow().setStatusBarColor(NAVY);a.getWindow().setNavigationBarColor(NAVY);a.getWindow().getDecorView().setSystemUiVisibility(0);}
- static void lightBars(android.app.Activity a){a.getWindow().setStatusBarColor(BG);a.getWindow().setNavigationBarColor(BG);a.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR|View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);}
+ static void lightBars(android.app.Activity a){a.getWindow().setStatusBarColor(BG);a.getWindow().setNavigationBarColor(BG);a.getWindow().getDecorView().setSystemUiVisibility(Color.luminance(BG)>.55f?View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR|View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR:0);}
+ static void polishPopup(Context c,PopupWindow popup,View content,int radius){GradientDrawable shell=stroke(SURFACE,dp(c,1),BORDER,dp(c,radius));content.setBackground(shell);content.setElevation(dp(c,18));popup.setBackgroundDrawable(stroke(SURFACE,dp(c,1),BORDER,dp(c,radius)));popup.setElevation(dp(c,18));popup.setOutsideTouchable(true);popup.setFocusable(true);}
 }
