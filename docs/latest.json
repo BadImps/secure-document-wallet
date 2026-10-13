@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 24,
-  "versionName": "3.3",
-  "publishedAt": "2026-10-13T14:34:52Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.3/My-Vault-3.3.apk",
-  "sha256": "92a35d142ab40c4a3b8d1c02bf138e2ab92f6ba04f545b0f6be45a83e5a7883f",
-  "sizeBytes": 49076340,
-  "notes": "My Vault 3.3 replaces the partial refresh with the complete native V8 Search Command Centre interface, consistent line icons, persistent navigation, redesigned document stacks and tool pages, and screenshot-verified layouts across sixteen app-owned screens."
+  "versionCode": 25,
+  "versionName": "3.4",
+  "publishedAt": "2026-10-13T16:43:16Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.4/My-Vault-3.4.apk",
+  "sha256": "1c1578ef37715d62f1395822cb03d9a97d26af73c45c3e0e3dc4934329e9e458",
+  "sizeBytes": 49076380,
+  "notes": "My Vault 3.4 removes Suggested, replaces compact text filters with accessible icons, keeps top and bottom navigation clear of phone system bars, adds theme-reactive emissive tiles, and gives popup menus rounder corners with stronger shadows."
 }
