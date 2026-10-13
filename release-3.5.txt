@@ -1,0 +1,7 @@
+My Vault 3.5 polishes the home screen elevation and navigation.
+
+- Gave every home-page vault tile a thicker, continuous shadow.
+- Added safe drawing space around tile edges so shadows and rounded corners are not cut.
+- Corrected the raised centre Scan button so its top edge and shadow render completely.
+- Increased navigation elevation and corner depth for a more solid finish.
+- Preserved the active app theme across the upgraded tile surfaces.
