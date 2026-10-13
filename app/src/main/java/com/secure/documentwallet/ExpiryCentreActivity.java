@@ -1,0 +1,13 @@
+package com.secure.documentwallet;
+
+import android.content.*;import android.os.Bundle;import android.view.*;import android.widget.*;import androidx.fragment.app.FragmentActivity;import org.json.*;import java.text.*;import java.util.*;import java.util.concurrent.*;
+
+public class ExpiryCentreActivity extends FragmentActivity {
+ private final ExecutorService io=Executors.newSingleThreadExecutor();private LinearLayout list;
+ @Override public void onCreate(Bundle b){super.onCreate(b);Ui.safeScreen(this);Ui.lightBars(this);if(!Session.valid()){finish();return;}LinearLayout page=VaultPageUi.page(this);LinearLayout head=VaultPageUi.header(this,"Expiry Centre","Renewals and important dates");head.addView(VaultPageUi.badge(this,"New"),new LinearLayout.LayoutParams(-2,Ui.dp(this,30)));page.addView(head);page.addView(VaultPageUi.notice(this,"◷","Renewal Alerts Active","My Vault checks saved expiry dates every day",0xfffff3dc,0xffb76a07));page.addView(VaultPageUi.section(this,"Upcoming"));list=Ui.column(this);page.addView(list);TextView add=VaultPageUi.primary(this,"Add Or Edit An Expiry Date");add.setOnClickListener(v->startActivity(new Intent(this,CategoryActivity.class).putExtra("group",DocumentGroups.DOCUMENTS)));VaultPageUi.button(page,add);setContentView(VaultPageUi.scroll(this,page));load();}
+ private void load(){io.execute(()->{try{JSONArray all=new VaultRepository(this).all();ArrayList<JSONObject> dated=new ArrayList<>();for(int i=0;i<all.length();i++)if(!all.getJSONObject(i).optString("expiryDate").isEmpty())dated.add(all.getJSONObject(i));dated.sort(Comparator.comparingLong(this::when));runOnUiThread(()->render(dated));}catch(Exception e){runOnUiThread(()->Ui.toast(this,"Could Not Read Expiry Dates"));}});}
+ private long when(JSONObject item){try{return new SimpleDateFormat("dd/MM/yyyy",Locale.US).parse(item.optString("expiryDate")).getTime();}catch(Exception e){return Long.MAX_VALUE;}}
+ private void render(ArrayList<JSONObject> items){list.removeAllViews();if(items.isEmpty()){list.addView(VaultPageUi.notice(this,"✓","Nothing Is Expiring Soon","Add an expiry date from a document's details",Ui.SOFT,Ui.TEAL));return;}long day=86400000L,now=System.currentTimeMillis();for(JSONObject item:items){long days=Math.max(0,(when(item)-now+day-1)/day);LinearLayout row=VaultPageUi.row(this,"◷",item.optString("title","Document"),"Expires "+item.optString("expiryDate")+" · "+days+" day"+(days==1?"":"s"));row.setOnClickListener(v->startActivity(new Intent(this,DocumentActivity.class).putExtra("id",item.optString("id"))));VaultPageUi.addRow(list,row);}}
+ @Override protected void onResume(){super.onResume();if(list!=null)load();}
+ @Override protected void onDestroy(){super.onDestroy();io.shutdownNow();}
+}

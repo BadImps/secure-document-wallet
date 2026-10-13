@@ -18,6 +18,14 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="false"
         android:theme="@style/AppTheme">
+        <activity android:name=".VaultActivityTimelineActivity" android:exported="false" />
+        <activity android:name=".EmergencyAccessActivity" android:exported="false" />
+        <activity android:name=".SecureShareHubActivity" android:exported="false" />
+        <activity android:name=".ExpiryCentreActivity" android:exported="false" />
+        <activity android:name=".AccountDevicesActivity" android:exported="false" />
+        <activity android:name=".AppUpdatesActivity" android:exported="false" />
+        <activity android:name=".AppearanceActivity" android:exported="false" />
+        <activity android:name=".VaultSettingsActivity" android:exported="false" />
         <activity android:name=".CardImportWizardActivity" android:exported="false" />
         <activity android:name=".PrivateMediaActivity" android:exported="false" />
         <activity android:name=".PersonalInformationActivity" android:exported="false" />

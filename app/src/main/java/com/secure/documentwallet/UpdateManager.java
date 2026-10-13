@@ -1,6 +1,7 @@
 package com.secure.documentwallet;
 
 import android.app.AlertDialog;
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -35,7 +36,7 @@ final class UpdateManager {
 
     private UpdateManager() {}
 
-    static void check(MainActivity activity, boolean manual) {
+    static void check(Activity activity, boolean manual) {
         if (!manual) {
             long last = activity.getSharedPreferences("updates", Context.MODE_PRIVATE).getLong("lastCheck", 0L);
             if (System.currentTimeMillis() - last < AUTO_CHECK_INTERVAL) return;
@@ -79,7 +80,7 @@ final class UpdateManager {
         }
     }
 
-    private static void showUpdate(MainActivity activity, JSONObject feed) {
+    private static void showUpdate(Activity activity, JSONObject feed) {
         String version = feed.optString("versionName", "New Version");
         String notes = feed.optString("notes", "A new My Vault update is ready.");
         new AlertDialog.Builder(activity)
@@ -90,7 +91,7 @@ final class UpdateManager {
                 .show();
     }
 
-    private static void prepareDownload(MainActivity activity, JSONObject feed) {
+    private static void prepareDownload(Activity activity, JSONObject feed) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O && !activity.getPackageManager().canRequestPackageInstalls()) {
             new AlertDialog.Builder(activity)
                     .setTitle("Allow My Vault Updates")
@@ -132,7 +133,7 @@ final class UpdateManager {
         }
     }
 
-    private static void verifyAndInstall(MainActivity activity, DownloadManager manager, long id, File apk, String expectedHash, long expectedSize, DownloadProgress progress) {
+    private static void verifyAndInstall(Activity activity, DownloadManager manager, long id, File apk, String expectedHash, long expectedSize, DownloadProgress progress) {
         IO.execute(() -> {
             try {
                 try (Cursor cursor = manager.query(new DownloadManager.Query().setFilterById(id))) {
@@ -150,8 +151,8 @@ final class UpdateManager {
     }
 
     private static final class DownloadProgress {
-        private final MainActivity activity;private final DownloadManager manager;private final long id,expectedSize;private final String version;private final Handler handler=new Handler(Looper.getMainLooper());private AlertDialog dialog;private ProgressBar bar;private TextView status;private boolean polling=true;
-        DownloadProgress(MainActivity activity,DownloadManager manager,long id,long expectedSize,String version){this.activity=activity;this.manager=manager;this.id=id;this.expectedSize=expectedSize;this.version=version;}
+        private final Activity activity;private final DownloadManager manager;private final long id,expectedSize;private final String version;private final Handler handler=new Handler(Looper.getMainLooper());private AlertDialog dialog;private ProgressBar bar;private TextView status;private boolean polling=true;
+        DownloadProgress(Activity activity,DownloadManager manager,long id,long expectedSize,String version){this.activity=activity;this.manager=manager;this.id=id;this.expectedSize=expectedSize;this.version=version;}
         void show(){LinearLayout content=Ui.column(activity);content.setPadding(Ui.dp(activity,22),Ui.dp(activity,8),Ui.dp(activity,22),Ui.dp(activity,8));status=Ui.text(activity,"Starting Download…",14,Ui.INK);status.setGravity(Gravity.CENTER);content.addView(status);bar=new ProgressBar(activity,null,android.R.attr.progressBarStyleHorizontal);bar.setMax(1000);bar.setProgress(0);LinearLayout.LayoutParams bp=new LinearLayout.LayoutParams(-1,Ui.dp(activity,18));bp.setMargins(0,Ui.dp(activity,18),0,Ui.dp(activity,10));content.addView(bar,bp);TextView note=Ui.text(activity,"You may hide this window. The verified installer will open when the download finishes.",12,Ui.MUTED);note.setGravity(Gravity.CENTER);content.addView(note);dialog=new AlertDialog.Builder(activity).setTitle("Downloading My Vault "+version).setView(content).setNegativeButton("Hide",null).create();dialog.setOnDismissListener(d->{polling=false;handler.removeCallbacksAndMessages(null);});dialog.show();handler.post(this::poll);}
         private void poll(){if(!polling||activity.isFinishing())return;try(Cursor cursor=manager.query(new DownloadManager.Query().setFilterById(id))){if(cursor.moveToFirst()){int state=cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));long downloaded=cursor.getLong(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR)),reported=cursor.getLong(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_TOTAL_SIZE_BYTES)),total=reported>0?reported:expectedSize;if(state==DownloadManager.STATUS_RUNNING&&total>0){int value=(int)Math.min(1000,downloaded*1000L/total);bar.setIndeterminate(false);bar.setProgress(value);status.setText((value/10)+"%  ·  "+size(downloaded)+" Of "+size(total));}else if(state==DownloadManager.STATUS_PAUSED){bar.setIndeterminate(true);status.setText("Download Paused · Waiting For Network");}else if(state==DownloadManager.STATUS_PENDING){bar.setIndeterminate(true);status.setText("Preparing Secure Download…");}else if(state==DownloadManager.STATUS_SUCCESSFUL){bar.setIndeterminate(true);status.setText("Download Complete · Verifying…");}else if(state==DownloadManager.STATUS_FAILED){bar.setIndeterminate(false);status.setText("Download Could Not Be Completed");}}}catch(Exception ignored){}if(polling)handler.postDelayed(this::poll,350);}
         void verifying(){handler.post(()->{if(dialog!=null&&dialog.isShowing()){bar.setIndeterminate(true);status.setText("Download Complete · Verifying Signature…");}});}
@@ -171,7 +172,7 @@ final class UpdateManager {
         return result.toString();
     }
 
-    private static void install(MainActivity activity, File apk) {
+    private static void install(Activity activity, File apk) {
         try {
             Uri uri = FileProvider.getUriForFile(activity, activity.getPackageName() + ".files", apk);
             Intent install = new Intent(Intent.ACTION_VIEW).setDataAndType(uri, "application/vnd.android.package-archive")

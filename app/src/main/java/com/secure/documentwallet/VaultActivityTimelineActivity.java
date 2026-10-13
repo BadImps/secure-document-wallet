@@ -1,0 +1,11 @@
+package com.secure.documentwallet;
+
+import android.os.Bundle;import android.view.*;import android.widget.*;import androidx.fragment.app.FragmentActivity;import org.json.*;import java.text.*;import java.util.*;import java.util.concurrent.*;
+
+public class VaultActivityTimelineActivity extends FragmentActivity {
+ private final ExecutorService io=Executors.newSingleThreadExecutor();private LinearLayout list;
+ @Override public void onCreate(Bundle b){super.onCreate(b);Ui.safeScreen(this);Ui.lightBars(this);if(!Session.valid()){finish();return;}LinearLayout page=VaultPageUi.page(this);LinearLayout head=VaultPageUi.header(this,"Vault Activity","Security and document history");head.addView(VaultPageUi.badge(this,"New"),new LinearLayout.LayoutParams(-2,Ui.dp(this,30)));page.addView(head);page.addView(VaultPageUi.section(this,"Recent Activity"));list=Ui.column(this);page.addView(list);setContentView(VaultPageUi.scroll(this,page));load();}
+ private void load(){io.execute(()->{try{JSONArray docs=new VaultRepository(this).all(),events=VaultActivityLog.all(this);ArrayList<JSONObject> timeline=new ArrayList<>();for(int i=0;i<events.length();i++)timeline.add(events.getJSONObject(i));for(int i=0;i<docs.length();i++){JSONObject d=docs.getJSONObject(i);timeline.add(new JSONObject().put("title",d.optLong("updatedAt",0)>0?"Document Updated":"Document Added").put("detail",d.optString("title","Document")+" · "+d.optString("category","Document")).put("time",Math.max(d.optLong("updatedAt"),d.optLong("createdAt"))));}timeline.sort((a,b)->Long.compare(b.optLong("time"),a.optLong("time")));runOnUiThread(()->render(timeline));}catch(Exception e){runOnUiThread(()->Ui.toast(this,"Could Not Read Vault Activity"));}});}
+ private void render(ArrayList<JSONObject> events){list.removeAllViews();if(events.isEmpty()){list.addView(VaultPageUi.notice(this,"✓","No Activity Yet","New scans, edits, sharing, and backups will appear here",Ui.SOFT,Ui.TEAL));return;}SimpleDateFormat f=new SimpleDateFormat("dd MMM yyyy · h:mm a",Locale.getDefault());for(int i=0;i<events.size()&&i<40;i++){JSONObject e=events.get(i);VaultPageUi.addRow(list,VaultPageUi.row(this,"•",e.optString("title","Vault Activity"),e.optString("detail")+" · "+f.format(new Date(e.optLong("time")))));}}
+ @Override protected void onDestroy(){super.onDestroy();io.shutdownNow();}
+}

@@ -1,0 +1,9 @@
+package com.secure.documentwallet;
+
+import android.os.Bundle;import android.view.*;import android.widget.*;import androidx.fragment.app.FragmentActivity;
+
+public class AppearanceActivity extends FragmentActivity {
+ private final String[] names={"Aegis Blue","Emerald Institutional","Ocean Blue","Warm Sand","Obsidian Reserve","Lumen Glass"};
+ @Override public void onCreate(Bundle b){super.onCreate(b);Ui.safeScreen(this);Ui.lightBars(this);if(!Session.valid()){finish();return;}build();}
+ private void build(){LinearLayout page=VaultPageUi.page(this);page.addView(VaultPageUi.header(this,"Appearance","Choose your vault style"));page.addView(VaultPageUi.section(this,"Themes"));GridLayout grid=new GridLayout(this);grid.setColumnCount(2);for(int i=0;i<names.length;i++){int choice=i;LinearLayout theme=VaultPageUi.card(this);View colour=new View(this);colour.setBackground(Ui.bg(ThemeManager.tileStart(this,i),Ui.dp(this,12)));theme.addView(colour,new LinearLayout.LayoutParams(-1,Ui.dp(this,58)));TextView label=Ui.title(this,(ThemeManager.selected(this)==i?"✓  ":"")+names[i],12);label.setPadding(0,Ui.dp(this,8),0,0);theme.addView(label);theme.setOnClickListener(v->{ThemeManager.set(this,choice);recreate();});GridLayout.LayoutParams p=new GridLayout.LayoutParams();p.width=0;p.height=Ui.dp(this,112);p.columnSpec=GridLayout.spec(i%2,1f);p.setMargins(i%2==0?0:Ui.dp(this,5),Ui.dp(this,5),i%2==0?Ui.dp(this,5):0,Ui.dp(this,5));grid.addView(theme,p);}page.addView(grid);page.addView(VaultPageUi.section(this,"Interface"));page.addView(VaultPageUi.toggleRow(this,"☼","Follow System Appearance","Use your phone's light or dark setting",true,null));page.addView(VaultPageUi.toggleRow(this,"✦","Motion Effects","Card stacks and page transitions",true,null));setContentView(VaultPageUi.scroll(this,page));}
+}

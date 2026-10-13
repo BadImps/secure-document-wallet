@@ -1,0 +1,9 @@
+My Vault 3.2
+
+- Applies the V8 Search Command Centre design across the unlock screen, home, categories, viewers, search, settings, scanning, personal information, media, security, devices, appearance, and updates.
+- Adds a searchable home with real vault suggestions, category shortcuts, and renewal attention.
+- Adds Expiry Centre for saved renewal dates and reminders.
+- Adds Secure Share Hub for preparing protected temporary PDF copies through Android's share panel.
+- Adds Emergency Access Kit for selecting essential encrypted documents.
+- Adds Vault Activity for document, sharing, and security history.
+- Preserves encrypted storage, four-digit PIN and biometric access, scanning, OCR, Word originals, printing, cloud backup, PC portal access, and OTA updates.
