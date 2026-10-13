@@ -1,0 +1,9 @@
+My Vault 3.6 improves expiry tracking and document editing.
+
+- Removed the Expiring Soon, Bank Cards, and Certificates shortcuts from the homepage search panel.
+- Added an Expired Soon list below Edit, Crop, and Export in ID / Permit, Bank Cards, Certificates, and Documents.
+- Sorted expiry entries by the closest expiry date.
+- Highlighted documents due within one year in red.
+- Added red homepage alerts below Browse Your Vault for documents due within one year.
+- Fixed Edit so it opens one popup for changing both title and category.
+- Fixed Crop so it asks for Front, Back, or Cancel before opening the crop screen.
