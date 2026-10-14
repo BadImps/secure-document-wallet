@@ -1,0 +1,6 @@
+My Vault 3.10 restores reliable stack browsing in ID / Permit.
+
+- Flick down to move to the next saved ID or permit.
+- Flick up to return to the previous saved ID or permit.
+- Prevents the surrounding page from taking over the card gesture.
+- Keeps tap-to-flip and press-and-hold enlargement working.
