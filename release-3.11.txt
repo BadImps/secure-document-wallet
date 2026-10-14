@@ -1,0 +1,7 @@
+My Vault 3.11 improves bank-card expiry OCR.
+
+- Uses Good Thru, Valid Thru, Valid Until, Expiry, or Expires when a label is readable.
+- If no label is found, searches the entire front card for a standalone expiry date.
+- Prioritizes MM/YY, MM-YY, MM.YY, and four-digit-year variants.
+- Can also fall back to full numeric or written-month dates.
+- When several dates appear, prefers the most likely future expiry instead of an older Member Since date.
