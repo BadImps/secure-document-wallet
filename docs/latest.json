@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 32,
-  "versionName": "3.11",
-  "publishedAt": "2026-10-14T01:06:53Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.11/My-Vault-3.11.apk",
-  "sha256": "7d3a360ed3c50b5c075d20f318bc4e008a5d22d7c90392fa8bab8f8234041e94",
+  "versionCode": 33,
+  "versionName": "3.12",
+  "publishedAt": "2026-10-14T01:30:15Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.12/My-Vault-3.12.apk",
+  "sha256": "05dadd2beaaa4adceb2d7565920c02d07d649d50532efbf48cd60c1e5e1cd21e",
   "sizeBytes": 49092788,
-  "notes": "My Vault 3.11 searches the whole bank-card front for an expiry date when labelled Good Thru or Valid Thru text is unavailable, prioritizing standalone month/year formats."
+  "notes": "My Vault 3.12 validates and fills scanned bank-card numbers in Document Details and displays the saved document front during manual entry."
 }
