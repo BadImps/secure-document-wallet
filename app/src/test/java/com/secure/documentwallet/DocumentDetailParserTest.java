@@ -14,4 +14,6 @@ public class DocumentDetailParserTest {
  @Test public void findsUnlabelledBankExpiryOnWholeCard()throws Exception{JSONObject result=DocumentDetailParser.bank("FIRST CITIZENS 5412 3456 7890 1234 CARDHOLDER 09/29","First Citizens");assertEquals("September/2029",result.getString("expiryDate"));}
  @Test public void prioritizesStandaloneMonthYearAndLatestFutureValue()throws Exception{JSONObject result=DocumentDetailParser.bank("MEMBER SINCE 05/2018  CARDHOLDER  VALID 11-28","Bank");assertEquals("November/2028",result.getString("expiryDate"));}
  @Test public void fallsBackToWrittenBankExpiry()throws Exception{JSONObject result=DocumentDetailParser.bank("PLATINUM CARD Expires September 2029","Bank");assertEquals("September/2029",result.getString("expiryDate"));}
+ @Test public void readsAndValidatesBankCardNumber()throws Exception{JSONObject result=DocumentDetailParser.bank("VISA 4111 1111 1111 1111 VALID THRU 09/29","Bank");assertEquals("4111111111111111",result.getString("documentNumber"));}
+ @Test public void rejectsInvalidBankCardNumber()throws Exception{JSONObject result=DocumentDetailParser.bank("VISA 4111 1111 1111 1112 VALID THRU 09/29","Bank");assertEquals("",result.getString("documentNumber"));}
 }

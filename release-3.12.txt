@@ -1,0 +1,7 @@
+My Vault 3.12 improves Document Details for saved bank cards and manual entry.
+
+- Bank-card OCR detects 13-to-19-digit card numbers and verifies them with the Luhn checksum.
+- A verified card number is placed automatically in the Document Number review field.
+- Invalid digit sequences are left blank for safe manual review.
+- Manual Document Details now shows the saved document or card front above the fields.
+- Decrypted previews remain in protected app memory and are released when the wizard step closes.
