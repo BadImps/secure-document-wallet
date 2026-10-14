@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 29,
-  "versionName": "3.8",
-  "publishedAt": "2026-10-13T22:50:53Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.8/My-Vault-3.8.apk",
-  "sha256": "589dba41a72163b13232e72d9b3cd1b34ee74f30ad7861243722b00568259ed2",
+  "versionCode": 30,
+  "versionName": "3.9",
+  "publishedAt": "2026-10-14T00:12:02Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.9/My-Vault-3.9.apk",
+  "sha256": "4145f30f21af0d55c167e33f2840582cc6bb7b6da7985fbcb27fabd05d3d7e9c",
   "sizeBytes": 49092792,
-  "notes": "My Vault 3.8 shows the scanned front, back, or bank card image during the Document Details review step, fitted without cropping and kept only in protected app memory."
+  "notes": "My Vault 3.9 recognizes common numeric, written-month, ISO, and compact date formats during ID and permit OCR, then normalizes valid dates to DD/MM/YYYY."
 }
