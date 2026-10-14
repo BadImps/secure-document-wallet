@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 30,
-  "versionName": "3.9",
-  "publishedAt": "2026-10-14T00:12:02Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.9/My-Vault-3.9.apk",
-  "sha256": "4145f30f21af0d55c167e33f2840582cc6bb7b6da7985fbcb27fabd05d3d7e9c",
-  "sizeBytes": 49092792,
-  "notes": "My Vault 3.9 recognizes common numeric, written-month, ISO, and compact date formats during ID and permit OCR, then normalizes valid dates to DD/MM/YYYY."
+  "versionCode": 31,
+  "versionName": "3.10",
+  "publishedAt": "2026-10-14T00:26:24Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.10/My-Vault-3.10.apk",
+  "sha256": "446015befe3c5e1a5188b8b0feccd58ee48e4f99fe284b0c4286450a98dc131c",
+  "sizeBytes": 49092788,
+  "notes": "My Vault 3.10 restores reliable flick-down and flick-up browsing in ID / Permit while preserving tap-to-flip and press-and-hold enlargement."
 }
