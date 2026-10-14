@@ -1,0 +1,6 @@
+My Vault 3.9 improves date recognition for ID and permit OCR.
+
+- Recognizes day-first, unambiguous month-first, ISO year-first, compact, and written-month dates.
+- Supports labels such as Issue Date, Date Of Issue, Issued On, Valid From, Expiry Date, Expires, and Valid Until.
+- Converts every recognized ID or permit date to DD/MM/YYYY for a consistent review and saved record.
+- Rejects impossible calendar dates instead of saving them.
