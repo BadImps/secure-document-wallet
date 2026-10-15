@@ -1,10 +1,10 @@
 {
   "applicationId": "com.secure.documentwallet",
-  "versionCode": 33,
-  "versionName": "3.12",
-  "publishedAt": "2026-10-14T01:30:15Z",
-  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.12/My-Vault-3.12.apk",
-  "sha256": "05dadd2beaaa4adceb2d7565920c02d07d649d50532efbf48cd60c1e5e1cd21e",
-  "sizeBytes": 49092788,
-  "notes": "My Vault 3.12 validates and fills scanned bank-card numbers in Document Details and displays the saved document front during manual entry."
+  "versionCode": 34,
+  "versionName": "3.13",
+  "publishedAt": "2026-10-15T00:29:24Z",
+  "apkUrl": "https://github.com/BadImps/secure-document-wallet/releases/download/v3.13/My-Vault-3.13.apk",
+  "sha256": "86c3582e6794f9c71b0b3b089920c0839628d25b01acc6a1bb89efcb5d72ce5f",
+  "sizeBytes": 47857755,
+  "notes": "My Vault 3.13 adds verified cloud backup snapshots, safer temporary exports, an improved PC portal, and honest vault-health and access status."
 }

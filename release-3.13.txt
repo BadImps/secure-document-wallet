@@ -1,0 +1,8 @@
+My Vault 3.13 makes backup status and sensitive-file handling more trustworthy.
+
+- Cloud backups now publish an immutable snapshot manifest only after every encrypted object has uploaded.
+- Backup verification checks the manifest, recovery package, and every encrypted object hash.
+- The PC portal reads verified snapshots, supports search and category filters, offers original-file export, and locks when hidden.
+- Temporary export copies are scheduled for cleanup after a short sharing window.
+- Vault Health is calculated from real protection evidence instead of a fixed score.
+- Export, emergency shortlist, PC access, appearance, and update screens now describe their actual behavior accurately.

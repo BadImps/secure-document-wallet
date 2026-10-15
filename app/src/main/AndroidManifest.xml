@@ -42,6 +42,7 @@
         <activity android:name=".VaultHealthActivity" android:exported="false" />
         <activity android:name=".VaultSearchActivity" android:exported="false" />
         <receiver android:name=".ExpiryReceiver" android:exported="false" />
+        <receiver android:name=".SecureCacheCleanupReceiver" android:exported="false" />
         <activity android:name=".MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

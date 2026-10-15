@@ -20,13 +20,13 @@
 
     <section id="wallet" class="hidden">
       <div class="hero"><div><p class="eyebrow">YOUR PRIVATE VAULT</p><h1>My Vault</h1><p>Encrypted documents available from your phone and PC.</p></div><button id="refresh" class="secondary">↻ Refresh</button></div>
-      <div class="category-grid"><div><b>▣</b><span>Identity</span></div><div><b>◆</b><span>Permits</span></div><div><b>✓</b><span>Certificates</span></div><div><b>●</b><span>Other</span></div></div>
-      <div class="section-title"><div><h2>Your Documents</h2><p id="count">Loading encrypted vault…</p></div></div>
+      <div class="category-grid" role="group" aria-label="Filter documents"><button data-filter="all" class="active"><b>▣</b><span>All</span></button><button data-filter="identity"><b>◆</b><span>Identity & permits</span></button><button data-filter="certificates"><b>✓</b><span>Certificates</span></button><button data-filter="other"><b>●</b><span>Cards & other</span></button></div>
+      <div class="section-title"><div><h2>Your Documents</h2><p id="count">Loading encrypted vault…</p></div><label class="portal-search"><span class="sr-only">Search documents</span><input id="search" type="search" placeholder="Search titles, tags, notes…"></label></div>
       <div id="documents" class="documents"></div>
     </section>
   </main>
 
-  <dialog id="viewer"><div class="viewer-head"><div><p class="eyebrow">SECURE PREVIEW</p><h2 id="viewerTitle"></h2></div><button id="closeViewer" aria-label="Close">×</button></div><div id="pages" class="pages"></div><div class="viewer-actions"><button id="downloadPdf" class="primary">Download PDF</button><button id="printPdf" class="secondary">Print</button><button id="sharePdf" class="secondary">Share</button></div></dialog>
+  <dialog id="viewer"><div class="viewer-head"><div><p class="eyebrow">SECURE PREVIEW</p><h2 id="viewerTitle"></h2></div><button id="closeViewer" aria-label="Close">×</button></div><div id="pages" class="pages"></div><div class="viewer-actions"><button id="downloadPdf" class="primary">Download PDF</button><button id="printPdf" class="secondary">Print</button><button id="sharePdf" class="secondary">Share</button><button id="downloadOriginal" class="secondary hidden">Original file</button></div></dialog>
   <script type="module" src="app.js"></script>
 </body>
 </html>
